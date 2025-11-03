@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/data/jpa https://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+    <!-- ===== H2 DataSource ===== -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${spring.datasource.driver-class-name}" />
+        <property name="url" value="${spring.datasource.url}" />
+        <property name="username" value="${spring.datasource.username}" />
+        <property name="password" value="${spring.datasource.password}" />
+    </bean>
+
+    <!-- ===== JPA Entity Manager Factory ===== -->
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="packagesToScan" value="com.optiroute.optiroute" />
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="customOpenAPI" class="io.swagger.v3.oas.models.OpenAPI">
+        <property name="components">
+            <bean class="io.swagger.v3.oas.models.Components">
+                <property name="responses">
+                    <map>
+                        <entry key="NotFound">
+                            <bean class="io.swagger.v3.oas.models.responses.ApiResponse">
+                                <property name="description" value="Resource not found" />
+                            </bean>
+                        </entry>
+
+                        <entry key="BadRequest">
+                            <bean class="io.swagger.v3.oas.models.responses.ApiResponse">
+                                <property name="description" value="Invalid ID supplied" />
+                            </bean>
+                        </entry>
+
+                        <entry key="InternalError">
+                            <bean class="io.swagger.v3.oas.models.responses.ApiResponse">
+                                <property name="description" value="Internal Server Error" />
+                            </bean>
+                        </entry>
+                    </map>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="dataSeeder" class="com.optiroute.optiroute.seeder.DataSeeder">
+        <constructor-arg ref="wareHouseRepository"/>
+        <constructor-arg ref="vehicleRepository"/>
+        <constructor-arg ref="tourRepository"/>
+        <constructor-arg ref="deliveryRepository"/>
+    </bean>
+
+    <!-- ===== Transaction Manager ===== -->
+    <bean id="transactionManager"
+          class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <jpa:repositories base-package="com.optiroute.optiroute.domain.repository" entity-manager-factory-ref="entityManagerFactory"/>
+
+    <bean id="springContext" class="com.optiroute.optiroute.infrastructure.config.SpringContext">
+        <constructor-arg ref="entityManagerFactory"/>
+    </bean>
+
+    <bean id="optimizeFactory" class="com.optiroute.optiroute.application.service.OptimizeFactory">
+
+    </bean>
+    <!-- Service wiring -->
+    <bean id="wareHouseService" class="com.optiroute.optiroute.application.service.WareHouseService">
+        <constructor-arg ref="wareHouseRepository"/>
+    </bean>
+
+    <bean id="vehiculeService" class="com.optiroute.optiroute.application.service.VehiculeService">
+        <constructor-arg ref="vehicleRepository" />
+    </bean>
+
+    <bean id="tourService" class="com.optiroute.optiroute.application.service.TourService">
+        <constructor-arg ref="tourRepository" />
+        <constructor-arg ref="wareHouseRepository" />
+        <constructor-arg ref="vehicleRepository" />
+        <constructor-arg ref="deliveryRepository" />
+        <constructor-arg ref="optimizeFactory" />
+    </bean>
+
+    <bean id="deliveryService" class="com.optiroute.optiroute.application.service.DeliveryService">
+        <constructor-arg ref="deliveryRepository" />
+        <constructor-arg ref="tourRepository" />
+    </bean>
+
+    <!-- Controller wiring -->
+    <bean id="wareHouseController" class="com.optiroute.optiroute.presentation.controller.WareHouseController">
+        <constructor-arg ref="wareHouseService" />
+    </bean>
+
+    <bean id="vehiculeController" class="com.optiroute.optiroute.presentation.controller.VehiculeController">
+        <constructor-arg ref="vehiculeService" />
+    </bean>
+
+    <bean id="tourController" class="com.optiroute.optiroute.presentation.controller.TourController">
+        <constructor-arg ref="tourService" />
+    </bean>
+
+    <bean id="deliveryController" class="com.optiroute.optiroute.presentation.controller.DeliveryController">
+        <constructor-arg ref="deliveryService" />
+    </bean>
+
+
+    <bean id="nearestNeighborOptimizer" class="com.optiroute.optiroute.infrastructure.strategy.NearestNeighborOptimizer">
+        <!-- Set This After -->
+    </bean>
+
+    <bean id="clarkeWrightOptimizer" class="com.optiroute.optiroute.infrastructure.strategy.ClarkeWrightOptimizer">
+        <!-- Set This After -->
+    </bean>
+
+</beans>

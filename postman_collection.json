@@ -1,0 +1,1822 @@
+{
+    "item": [
+        {
+            "name": "warehouse",
+            "description": "",
+            "item": [
+                {
+                    "name": "{id}",
+                    "description": "",
+                    "item": [
+                        {
+                            "id": "2400d8b3-ae1c-4466-82ff-a6916449ed1f",
+                            "name": "Get a warehouse by ID",
+                            "request": {
+                                "name": "Get a warehouse by ID",
+                                "description": {
+                                    "content": "Retrieve the warehouse with the specified ID",
+                                    "type": "text/plain"
+                                },
+                                "url": {
+                                    "path": [
+                                        "warehouse",
+                                        ":id"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) The opening hour of the warehouse",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "openHour",
+                                            "value": ""
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) The closing hour of the warehouse",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "closeHour",
+                                            "value": ""
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) The address of the warehouse",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "address",
+                                            "value": ""
+                                        }
+                                    ],
+                                    "variable": [
+                                        {
+                                            "type": "any",
+                                            "value": "<long>",
+                                            "key": "id",
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) Unique identifier of the warehouse",
+                                                "type": "text/plain"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {},
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "dd130a17-eb81-4a29-ba54-c8e71ddb6643",
+                                    "name": "Successfully retrieved the warehouse",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "warehouse",
+                                                ":id"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [
+                                                {
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "(Required) The opening hour of the warehouse",
+                                                        "type": "text/plain"
+                                                    },
+                                                    "key": "openHour",
+                                                    "value": ""
+                                                },
+                                                {
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "(Required) The closing hour of the warehouse",
+                                                        "type": "text/plain"
+                                                    },
+                                                    "key": "closeHour",
+                                                    "value": ""
+                                                },
+                                                {
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "(Required) The address of the warehouse",
+                                                        "type": "text/plain"
+                                                    },
+                                                    "key": "address",
+                                                    "value": ""
+                                                }
+                                            ],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "GET",
+                                        "body": {}
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"id\": \"<long>\",\n  \"openHour\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  },\n  \"closeHour\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  },\n  \"address\": {\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"street\": \"<string>\"\n  },\n  \"createdAt\": \"<dateTime>\",\n  \"tourIds\": [\n    {\n      \"id\": \"<long>\",\n      \"vehicule\": {\n        \"id\": \"<long>\",\n        \"vehicleType\": \"BIKE\"\n      },\n      \"wareHouse\": {\n        \"id\": \"<long>\",\n        \"openHour\": {\n          \"hour\": \"<integer>\",\n          \"minute\": \"<integer>\",\n          \"second\": \"<integer>\",\n          \"nano\": \"<integer>\"\n        },\n        \"closeHour\": {\n          \"hour\": \"<integer>\",\n          \"minute\": \"<integer>\",\n          \"second\": \"<integer>\",\n          \"nano\": \"<integer>\"\n        },\n        \"address\": {\n          \"city\": \"<string>\",\n          \"country\": \"<string>\",\n          \"postalCode\": \"<string>\",\n          \"street\": \"<string>\"\n        },\n        \"createdAt\": \"<dateTime>\"\n      },\n      \"deliveryList\": [\n        {\n          \"id\": \"<long>\",\n          \"uuid\": \"<uuid>\",\n          \"coordinates\": {\n            \"latitude\": \"<double>\",\n            \"longitude\": \"<double>\"\n          },\n          \"deliveryStatus\": \"DELIVERED\",\n          \"poids\": \"<double>\",\n          \"volume\": \"<double>\",\n          \"created_at\": \"<dateTime>\"\n        },\n        {\n          \"id\": \"<long>\",\n          \"uuid\": \"<uuid>\",\n          \"coordinates\": {\n            \"latitude\": \"<double>\",\n            \"longitude\": \"<double>\"\n          },\n          \"deliveryStatus\": \"IN_TRANSIT\",\n          \"poids\": \"<double>\",\n          \"volume\": \"<double>\",\n          \"created_at\": \"<dateTime>\"\n        }\n      ],\n      \"createdAt\": \"<dateTime>\",\n      \"vehiculeId\": \"<long>\",\n      \"wareHouseId\": \"<long>\"\n    },\n    {\n      \"id\": \"<long>\",\n      \"vehicule\": {\n        \"id\": \"<long>\",\n        \"vehicleType\": \"BIKE\"\n      },\n      \"wareHouse\": {\n        \"id\": \"<long>\",\n        \"openHour\": {\n          \"hour\": \"<integer>\",\n          \"minute\": \"<integer>\",\n          \"second\": \"<integer>\",\n          \"nano\": \"<integer>\"\n        },\n        \"closeHour\": {\n          \"hour\": \"<integer>\",\n          \"minute\": \"<integer>\",\n          \"second\": \"<integer>\",\n          \"nano\": \"<integer>\"\n        },\n        \"address\": {\n          \"city\": \"<string>\",\n          \"country\": \"<string>\",\n          \"postalCode\": \"<string>\",\n          \"street\": \"<string>\"\n        },\n        \"createdAt\": \"<dateTime>\"\n      },\n      \"deliveryList\": [\n        {\n          \"id\": \"<long>\",\n          \"uuid\": \"<uuid>\",\n          \"coordinates\": {\n            \"latitude\": \"<double>\",\n            \"longitude\": \"<double>\"\n          },\n          \"deliveryStatus\": \"PENDING\",\n          \"poids\": \"<double>\",\n          \"volume\": \"<double>\",\n          \"created_at\": \"<dateTime>\"\n        },\n        {\n          \"id\": \"<long>\",\n          \"uuid\": \"<uuid>\",\n          \"coordinates\": {\n            \"latitude\": \"<double>\",\n            \"longitude\": \"<double>\"\n          },\n          \"deliveryStatus\": \"FAILED\",\n          \"poids\": \"<double>\",\n          \"volume\": \"<double>\",\n          \"created_at\": \"<dateTime>\"\n        }\n      ],\n      \"createdAt\": \"<dateTime>\",\n      \"vehiculeId\": \"<long>\",\n      \"wareHouseId\": \"<long>\"\n    }\n  ]\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                },
+                                {
+                                    "id": "21fcb3b1-acb6-4792-9358-0d5bd2129a6a",
+                                    "name": "Internal Server Error",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "warehouse",
+                                                ":id"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [
+                                                {
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "(Required) The opening hour of the warehouse",
+                                                        "type": "text/plain"
+                                                    },
+                                                    "key": "openHour",
+                                                    "value": ""
+                                                },
+                                                {
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "(Required) The closing hour of the warehouse",
+                                                        "type": "text/plain"
+                                                    },
+                                                    "key": "closeHour",
+                                                    "value": ""
+                                                },
+                                                {
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "(Required) The address of the warehouse",
+                                                        "type": "text/plain"
+                                                    },
+                                                    "key": "address",
+                                                    "value": ""
+                                                }
+                                            ],
+                                            "variable": []
+                                        },
+                                        "method": "GET",
+                                        "body": {}
+                                    },
+                                    "status": "Internal Server Error",
+                                    "code": 500,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        },
+                        {
+                            "id": "ecc3ee39-bed1-4854-838d-8987a38997b0",
+                            "name": "Update a warehouse",
+                            "request": {
+                                "name": "Update a warehouse",
+                                "description": {
+                                    "content": "Update the details of the warehouse with the specified ID",
+                                    "type": "text/plain"
+                                },
+                                "url": {
+                                    "path": [
+                                        "warehouse",
+                                        ":id"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "type": "any",
+                                            "value": "<long>",
+                                            "key": "id",
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "PUT",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"openHour\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  },\n  \"closeHour\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  },\n  \"address\": {\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"street\": \"<string>\"\n  }\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "25689228-6a37-49ec-b945-fbcabf3ccf96",
+                                    "name": "OK",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "warehouse",
+                                                ":id"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "PUT",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"openHour\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  },\n  \"closeHour\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  },\n  \"address\": {\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"street\": \"<string>\"\n  }\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        },
+                        {
+                            "id": "14796619-29de-43c4-a1fc-e4469954e953",
+                            "name": "Delete a warehouse",
+                            "request": {
+                                "name": "Delete a warehouse",
+                                "description": {
+                                    "content": "Delete the warehouse with the specified ID",
+                                    "type": "text/plain"
+                                },
+                                "url": {
+                                    "path": [
+                                        "warehouse",
+                                        ":id"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "type": "any",
+                                            "value": "<long>",
+                                            "key": "id",
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "method": "DELETE",
+                                "body": {},
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "9b5b5c26-8cd2-410d-9268-e273cf187784",
+                                    "name": "OK",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "warehouse",
+                                                ":id"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "method": "DELETE",
+                                        "body": {}
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "aaa6c9db-8e38-48fb-87ba-43b2323cb24d",
+                    "name": "Get all warehouses",
+                    "request": {
+                        "name": "Get all warehouses",
+                        "description": {
+                            "content": "Retrieve a list of all warehouses",
+                            "type": "text/plain"
+                        },
+                        "url": {
+                            "path": [
+                                "warehouse"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "GET",
+                        "body": {},
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "832401c1-9d45-41d2-b162-24b012b36eef",
+                            "name": "Successfully retrieved list of warehouses",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "warehouse"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"id\": \"<long>\",\n  \"openHour\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  },\n  \"closeHour\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  },\n  \"address\": {\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"street\": \"<string>\"\n  },\n  \"createdAt\": \"<dateTime>\",\n  \"tourIds\": [\n    {\n      \"id\": \"<long>\",\n      \"vehicule\": {\n        \"id\": \"<long>\",\n        \"vehicleType\": \"BIKE\"\n      },\n      \"wareHouse\": {\n        \"id\": \"<long>\",\n        \"openHour\": {\n          \"hour\": \"<integer>\",\n          \"minute\": \"<integer>\",\n          \"second\": \"<integer>\",\n          \"nano\": \"<integer>\"\n        },\n        \"closeHour\": {\n          \"hour\": \"<integer>\",\n          \"minute\": \"<integer>\",\n          \"second\": \"<integer>\",\n          \"nano\": \"<integer>\"\n        },\n        \"address\": {\n          \"city\": \"<string>\",\n          \"country\": \"<string>\",\n          \"postalCode\": \"<string>\",\n          \"street\": \"<string>\"\n        },\n        \"createdAt\": \"<dateTime>\"\n      },\n      \"deliveryList\": [\n        {\n          \"id\": \"<long>\",\n          \"uuid\": \"<uuid>\",\n          \"coordinates\": {\n            \"latitude\": \"<double>\",\n            \"longitude\": \"<double>\"\n          },\n          \"deliveryStatus\": \"DELIVERED\",\n          \"poids\": \"<double>\",\n          \"volume\": \"<double>\",\n          \"created_at\": \"<dateTime>\"\n        },\n        {\n          \"id\": \"<long>\",\n          \"uuid\": \"<uuid>\",\n          \"coordinates\": {\n            \"latitude\": \"<double>\",\n            \"longitude\": \"<double>\"\n          },\n          \"deliveryStatus\": \"IN_TRANSIT\",\n          \"poids\": \"<double>\",\n          \"volume\": \"<double>\",\n          \"created_at\": \"<dateTime>\"\n        }\n      ],\n      \"createdAt\": \"<dateTime>\",\n      \"vehiculeId\": \"<long>\",\n      \"wareHouseId\": \"<long>\"\n    },\n    {\n      \"id\": \"<long>\",\n      \"vehicule\": {\n        \"id\": \"<long>\",\n        \"vehicleType\": \"BIKE\"\n      },\n      \"wareHouse\": {\n        \"id\": \"<long>\",\n        \"openHour\": {\n          \"hour\": \"<integer>\",\n          \"minute\": \"<integer>\",\n          \"second\": \"<integer>\",\n          \"nano\": \"<integer>\"\n        },\n        \"closeHour\": {\n          \"hour\": \"<integer>\",\n          \"minute\": \"<integer>\",\n          \"second\": \"<integer>\",\n          \"nano\": \"<integer>\"\n        },\n        \"address\": {\n          \"city\": \"<string>\",\n          \"country\": \"<string>\",\n          \"postalCode\": \"<string>\",\n          \"street\": \"<string>\"\n        },\n        \"createdAt\": \"<dateTime>\"\n      },\n      \"deliveryList\": [\n        {\n          \"id\": \"<long>\",\n          \"uuid\": \"<uuid>\",\n          \"coordinates\": {\n            \"latitude\": \"<double>\",\n            \"longitude\": \"<double>\"\n          },\n          \"deliveryStatus\": \"PENDING\",\n          \"poids\": \"<double>\",\n          \"volume\": \"<double>\",\n          \"created_at\": \"<dateTime>\"\n        },\n        {\n          \"id\": \"<long>\",\n          \"uuid\": \"<uuid>\",\n          \"coordinates\": {\n            \"latitude\": \"<double>\",\n            \"longitude\": \"<double>\"\n          },\n          \"deliveryStatus\": \"FAILED\",\n          \"poids\": \"<double>\",\n          \"volume\": \"<double>\",\n          \"created_at\": \"<dateTime>\"\n        }\n      ],\n      \"createdAt\": \"<dateTime>\",\n      \"vehiculeId\": \"<long>\",\n      \"wareHouseId\": \"<long>\"\n    }\n  ]\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                },
+                {
+                    "id": "55947fb6-63f9-4a65-af94-3b062b6e73cc",
+                    "name": "Create a new warehouse",
+                    "request": {
+                        "name": "Create a new warehouse",
+                        "description": {
+                            "content": "Create a new warehouse with the provided details",
+                            "type": "text/plain"
+                        },
+                        "url": {
+                            "path": [
+                                "warehouse"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "*/*"
+                            }
+                        ],
+                        "method": "POST",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"openHour\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  },\n  \"closeHour\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  },\n  \"address\": {\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"street\": \"<string>\"\n  }\n}",
+                            "options": {
+                                "raw": {
+                                    "headerFamily": "json",
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "623215af-54cf-4f83-b26e-e837a7c25b3c",
+                            "name": "OK",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "warehouse"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "*/*"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"openHour\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  },\n  \"closeHour\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  },\n  \"address\": {\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"street\": \"<string>\"\n  }\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "*/*"
+                                }
+                            ],
+                            "body": "<long>",
+                            "cookie": [],
+                            "_postman_previewlanguage": "text"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                }
+            ]
+        },
+        {
+            "name": "vehicle",
+            "description": "",
+            "item": [
+                {
+                    "name": "{id}",
+                    "description": "",
+                    "item": [
+                        {
+                            "id": "35c311de-ac71-4a3f-883e-8f5dfae33a0f",
+                            "name": "Get vehicle by ID",
+                            "request": {
+                                "name": "Get vehicle by ID",
+                                "description": {
+                                    "content": "Retrieve a vehicle by its ID",
+                                    "type": "text/plain"
+                                },
+                                "url": {
+                                    "path": [
+                                        "vehicle",
+                                        ":id"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "type": "any",
+                                            "value": "<long>",
+                                            "key": "id",
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "*/*"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {},
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "6d12ac1a-fb82-4a3e-84bf-9a782db27594",
+                                    "name": "OK",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "vehicle",
+                                                ":id"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Accept",
+                                                "value": "*/*"
+                                            }
+                                        ],
+                                        "method": "GET",
+                                        "body": {}
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "*/*"
+                                        }
+                                    ],
+                                    "body": "{\n  \"id\": \"<long>\",\n  \"vehicleType\": \"VAN\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        },
+                        {
+                            "id": "a5d37720-6912-410d-99fd-d2900aa55772",
+                            "name": "Update a vehicle",
+                            "request": {
+                                "name": "Update a vehicle",
+                                "description": {
+                                    "content": "Update the details of an existing vehicle by its ID",
+                                    "type": "text/plain"
+                                },
+                                "url": {
+                                    "path": [
+                                        "vehicle",
+                                        ":id"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "type": "any",
+                                            "value": "<long>",
+                                            "key": "id",
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "PUT",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"vehicleType\": \"BIKE\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "23ca1a92-285b-42ba-94e6-8bc84fdcf064",
+                                    "name": "OK",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "vehicle",
+                                                ":id"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "PUT",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"vehicleType\": \"BIKE\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        },
+                        {
+                            "id": "df3e0c25-12af-4913-95a8-3050c95d97fd",
+                            "name": "Delete a vehicle",
+                            "request": {
+                                "name": "Delete a vehicle",
+                                "description": {
+                                    "content": "Delete a vehicle by its ID",
+                                    "type": "text/plain"
+                                },
+                                "url": {
+                                    "path": [
+                                        "vehicle",
+                                        ":id"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "type": "any",
+                                            "value": "<long>",
+                                            "key": "id",
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "method": "DELETE",
+                                "body": {},
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "37c3775d-b306-4fbf-9399-66b724696ab3",
+                                    "name": "OK",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "vehicle",
+                                                ":id"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "method": "DELETE",
+                                        "body": {}
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "54850506-9739-4647-bb3c-fc75f13e5647",
+                    "name": "Get all vehicles",
+                    "request": {
+                        "name": "Get all vehicles",
+                        "description": {
+                            "content": "Retrieve a list of all vehicles",
+                            "type": "text/plain"
+                        },
+                        "url": {
+                            "path": [
+                                "vehicle"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "*/*"
+                            }
+                        ],
+                        "method": "GET",
+                        "body": {},
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "3b5c0f90-9d52-41ea-811c-4d20b9cd4a93",
+                            "name": "OK",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "vehicle"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "*/*"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "*/*"
+                                }
+                            ],
+                            "body": "[\n  {\n    \"id\": \"<long>\",\n    \"vehicleType\": \"TRUCK\"\n  },\n  {\n    \"id\": \"<long>\",\n    \"vehicleType\": \"BIKE\"\n  }\n]",
+                            "cookie": [],
+                            "_postman_previewlanguage": "text"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                },
+                {
+                    "id": "0f3f56cb-d04a-430f-bea5-2a2be644d10d",
+                    "name": "Create a new vehicle",
+                    "request": {
+                        "name": "Create a new vehicle",
+                        "description": {
+                            "content": "Create a new vehicle with the provided details",
+                            "type": "text/plain"
+                        },
+                        "url": {
+                            "path": [
+                                "vehicle"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "*/*"
+                            }
+                        ],
+                        "method": "POST",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"vehicleType\": \"BIKE\"\n}",
+                            "options": {
+                                "raw": {
+                                    "headerFamily": "json",
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "0b3fdf3e-a1f5-4fb1-97c5-2c9842879bbd",
+                            "name": "OK",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "vehicle"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "*/*"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"vehicleType\": \"BIKE\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "*/*"
+                                }
+                            ],
+                            "body": "<long>",
+                            "cookie": [],
+                            "_postman_previewlanguage": "text"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                }
+            ]
+        },
+        {
+            "name": "tours",
+            "description": "",
+            "item": [
+                {
+                    "name": "{id}",
+                    "description": "",
+                    "item": [
+                        {
+                            "id": "d57731b5-ed4b-4490-a4d5-b441510881ee",
+                            "name": "Update a tour",
+                            "request": {
+                                "name": "Update a tour",
+                                "description": {
+                                    "content": "Update the details of an existing tour by its ID",
+                                    "type": "text/plain"
+                                },
+                                "url": {
+                                    "path": [
+                                        "tours",
+                                        ":id"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "type": "any",
+                                            "value": "<long>",
+                                            "key": "id",
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "PUT",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"vehiculeId\": \"<long>\",\n  \"wareHouseId\": \"<long>\",\n  \"vehicule\": {\n    \"id\": \"<long>\",\n    \"vehicleType\": \"VAN\"\n  },\n  \"wareHouse\": {\n    \"id\": \"<long>\",\n    \"openHour\": {\n      \"hour\": \"<integer>\",\n      \"minute\": \"<integer>\",\n      \"second\": \"<integer>\",\n      \"nano\": \"<integer>\"\n    },\n    \"closeHour\": {\n      \"hour\": \"<integer>\",\n      \"minute\": \"<integer>\",\n      \"second\": \"<integer>\",\n      \"nano\": \"<integer>\"\n    },\n    \"address\": {\n      \"city\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"street\": \"<string>\"\n    },\n    \"createdAt\": \"<dateTime>\"\n  }\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "b71cf789-0e2d-448b-a77e-174a74c5973d",
+                                    "name": "OK",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "tours",
+                                                ":id"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "PUT",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"vehiculeId\": \"<long>\",\n  \"wareHouseId\": \"<long>\",\n  \"vehicule\": {\n    \"id\": \"<long>\",\n    \"vehicleType\": \"VAN\"\n  },\n  \"wareHouse\": {\n    \"id\": \"<long>\",\n    \"openHour\": {\n      \"hour\": \"<integer>\",\n      \"minute\": \"<integer>\",\n      \"second\": \"<integer>\",\n      \"nano\": \"<integer>\"\n    },\n    \"closeHour\": {\n      \"hour\": \"<integer>\",\n      \"minute\": \"<integer>\",\n      \"second\": \"<integer>\",\n      \"nano\": \"<integer>\"\n    },\n    \"address\": {\n      \"city\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"street\": \"<string>\"\n    },\n    \"createdAt\": \"<dateTime>\"\n  }\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        },
+                        {
+                            "id": "bc73e77c-5129-4d2b-b5c9-7abd6f8c2eb0",
+                            "name": "Delete a tour",
+                            "request": {
+                                "name": "Delete a tour",
+                                "description": {
+                                    "content": "Delete a tour by its ID",
+                                    "type": "text/plain"
+                                },
+                                "url": {
+                                    "path": [
+                                        "tours",
+                                        ":id"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "type": "any",
+                                            "value": "<long>",
+                                            "key": "id",
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "method": "DELETE",
+                                "body": {},
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "07c3f6d3-c03c-4daa-ba24-4d6537e85dd2",
+                                    "name": "OK",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "tours",
+                                                ":id"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "method": "DELETE",
+                                        "body": {}
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "3a3afedf-5d60-475f-9146-d6c529f3140c",
+                    "name": "Get all tours",
+                    "request": {
+                        "name": "Get all tours",
+                        "description": {
+                            "content": "Retrieve a list of all tours",
+                            "type": "text/plain"
+                        },
+                        "url": {
+                            "path": [
+                                "tours"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "*/*"
+                            }
+                        ],
+                        "method": "GET",
+                        "body": {},
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "81eab50e-afbe-4606-bca6-97167a911129",
+                            "name": "OK",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "tours"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "*/*"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "*/*"
+                                }
+                            ],
+                            "body": "[\n  {\n    \"id\": \"<long>\",\n    \"vehicule\": {\n      \"id\": \"<long>\",\n      \"vehicleType\": \"BIKE\"\n    },\n    \"deliveryList\": [\n      {\n        \"id\": \"<long>\",\n        \"uuid\": \"<uuid>\",\n        \"coordinates\": {\n          \"latitude\": \"<double>\",\n          \"longitude\": \"<double>\"\n        },\n        \"deliveryStatus\": \"PENDING\",\n        \"poids\": \"<double>\",\n        \"volume\": \"<double>\",\n        \"created_at\": \"<dateTime>\"\n      },\n      {\n        \"id\": \"<long>\",\n        \"uuid\": \"<uuid>\",\n        \"coordinates\": {\n          \"latitude\": \"<double>\",\n          \"longitude\": \"<double>\"\n        },\n        \"deliveryStatus\": \"PENDING\",\n        \"poids\": \"<double>\",\n        \"volume\": \"<double>\",\n        \"created_at\": \"<dateTime>\"\n      }\n    ],\n    \"wareHouse\": {\n      \"id\": \"<long>\",\n      \"openHour\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"closeHour\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"address\": {\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"postalCode\": \"<string>\",\n        \"street\": \"<string>\"\n      },\n      \"createdAt\": \"<dateTime>\"\n    },\n    \"createdAt\": \"<dateTime>\"\n  },\n  {\n    \"id\": \"<long>\",\n    \"vehicule\": {\n      \"id\": \"<long>\",\n      \"vehicleType\": \"VAN\"\n    },\n    \"deliveryList\": [\n      {\n        \"id\": \"<long>\",\n        \"uuid\": \"<uuid>\",\n        \"coordinates\": {\n          \"latitude\": \"<double>\",\n          \"longitude\": \"<double>\"\n        },\n        \"deliveryStatus\": \"FAILED\",\n        \"poids\": \"<double>\",\n        \"volume\": \"<double>\",\n        \"created_at\": \"<dateTime>\"\n      },\n      {\n        \"id\": \"<long>\",\n        \"uuid\": \"<uuid>\",\n        \"coordinates\": {\n          \"latitude\": \"<double>\",\n          \"longitude\": \"<double>\"\n        },\n        \"deliveryStatus\": \"IN_TRANSIT\",\n        \"poids\": \"<double>\",\n        \"volume\": \"<double>\",\n        \"created_at\": \"<dateTime>\"\n      }\n    ],\n    \"wareHouse\": {\n      \"id\": \"<long>\",\n      \"openHour\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"closeHour\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"address\": {\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"postalCode\": \"<string>\",\n        \"street\": \"<string>\"\n      },\n      \"createdAt\": \"<dateTime>\"\n    },\n    \"createdAt\": \"<dateTime>\"\n  }\n]",
+                            "cookie": [],
+                            "_postman_previewlanguage": "text"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                },
+                {
+                    "id": "7a01edfc-d1dd-4bad-b5f6-47d4026c7257",
+                    "name": "Create a new tour",
+                    "request": {
+                        "name": "Create a new tour",
+                        "description": {
+                            "content": "Create a new tour with the provided details",
+                            "type": "text/plain"
+                        },
+                        "url": {
+                            "path": [
+                                "tours"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "*/*"
+                            }
+                        ],
+                        "method": "POST",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"vehiculeId\": \"<long>\",\n  \"wareHouseId\": \"<long>\",\n  \"vehicule\": {\n    \"id\": \"<long>\",\n    \"vehicleType\": \"VAN\"\n  },\n  \"wareHouse\": {\n    \"id\": \"<long>\",\n    \"openHour\": {\n      \"hour\": \"<integer>\",\n      \"minute\": \"<integer>\",\n      \"second\": \"<integer>\",\n      \"nano\": \"<integer>\"\n    },\n    \"closeHour\": {\n      \"hour\": \"<integer>\",\n      \"minute\": \"<integer>\",\n      \"second\": \"<integer>\",\n      \"nano\": \"<integer>\"\n    },\n    \"address\": {\n      \"city\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"street\": \"<string>\"\n    },\n    \"createdAt\": \"<dateTime>\"\n  }\n}",
+                            "options": {
+                                "raw": {
+                                    "headerFamily": "json",
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "600fae9f-6291-439b-982b-3b0cedfe74d4",
+                            "name": "OK",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "tours"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "*/*"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"vehiculeId\": \"<long>\",\n  \"wareHouseId\": \"<long>\",\n  \"vehicule\": {\n    \"id\": \"<long>\",\n    \"vehicleType\": \"VAN\"\n  },\n  \"wareHouse\": {\n    \"id\": \"<long>\",\n    \"openHour\": {\n      \"hour\": \"<integer>\",\n      \"minute\": \"<integer>\",\n      \"second\": \"<integer>\",\n      \"nano\": \"<integer>\"\n    },\n    \"closeHour\": {\n      \"hour\": \"<integer>\",\n      \"minute\": \"<integer>\",\n      \"second\": \"<integer>\",\n      \"nano\": \"<integer>\"\n    },\n    \"address\": {\n      \"city\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"street\": \"<string>\"\n    },\n    \"createdAt\": \"<dateTime>\"\n  }\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "*/*"
+                                }
+                            ],
+                            "body": "<long>",
+                            "cookie": [],
+                            "_postman_previewlanguage": "text"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                }
+            ]
+        },
+        {
+            "name": "delivery",
+            "description": "",
+            "item": [
+                {
+                    "name": "{id}",
+                    "description": "",
+                    "item": [
+                        {
+                            "id": "9af01044-841a-4890-8b7e-5965e4468e26",
+                            "name": "Get delivery by ID",
+                            "request": {
+                                "name": "Get delivery by ID",
+                                "description": {
+                                    "content": "Retrieve a delivery by its ID",
+                                    "type": "text/plain"
+                                },
+                                "url": {
+                                    "path": [
+                                        "delivery",
+                                        ":id"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "type": "any",
+                                            "value": "<long>",
+                                            "key": "id",
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "*/*"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {},
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "259d8cee-0272-481c-95fb-c0996678eeba",
+                                    "name": "OK",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "delivery",
+                                                ":id"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Accept",
+                                                "value": "*/*"
+                                            }
+                                        ],
+                                        "method": "GET",
+                                        "body": {}
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "*/*"
+                                        }
+                                    ],
+                                    "body": "{\n  \"id\": \"<long>\",\n  \"uuid\": \"<uuid>\",\n  \"latitude\": \"<double>\",\n  \"longitude\": \"<double>\",\n  \"deliveryStatus\": \"<string>\",\n  \"poids\": \"<double>\",\n  \"volume\": \"<double>\",\n  \"tourId\": \"<long>\",\n  \"created_at\": \"<dateTime>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        },
+                        {
+                            "id": "0539d355-dfa8-4bcf-b5b4-b983f92510d5",
+                            "name": "Update a delivery",
+                            "request": {
+                                "name": "Update a delivery",
+                                "description": {
+                                    "content": "Update the details of an existing delivery by its ID",
+                                    "type": "text/plain"
+                                },
+                                "url": {
+                                    "path": [
+                                        "delivery",
+                                        ":id"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "type": "any",
+                                            "value": "<long>",
+                                            "key": "id",
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "PUT",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"uuid\": \"<uuid>\",\n  \"latitude\": \"<double>\",\n  \"longitude\": \"<double>\",\n  \"poids\": \"<double>\",\n  \"volume\": \"<double>\",\n  \"deliveryStatus\": \"FAILED\",\n  \"tourId\": \"<long>\",\n  \"tour\": {\n    \"id\": \"<long>\",\n    \"vehicule\": {\n      \"id\": \"<long>\",\n      \"vehicleType\": \"TRUCK\"\n    },\n    \"wareHouse\": {\n      \"id\": \"<long>\",\n      \"openHour\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"closeHour\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"address\": {\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"postalCode\": \"<string>\",\n        \"street\": \"<string>\"\n      },\n      \"createdAt\": \"<dateTime>\"\n    },\n    \"deliveryList\": [\n      {\n        \"id\": \"<long>\",\n        \"uuid\": \"<uuid>\",\n        \"coordinates\": {\n          \"latitude\": \"<double>\",\n          \"longitude\": \"<double>\"\n        },\n        \"deliveryStatus\": \"FAILED\",\n        \"poids\": \"<double>\",\n        \"volume\": \"<double>\",\n        \"created_at\": \"<dateTime>\"\n      },\n      {\n        \"id\": \"<long>\",\n        \"uuid\": \"<uuid>\",\n        \"coordinates\": {\n          \"latitude\": \"<double>\",\n          \"longitude\": \"<double>\"\n        },\n        \"deliveryStatus\": \"FAILED\",\n        \"poids\": \"<double>\",\n        \"volume\": \"<double>\",\n        \"created_at\": \"<dateTime>\"\n      }\n    ],\n    \"createdAt\": \"<dateTime>\",\n    \"vehiculeId\": \"<long>\",\n    \"wareHouseId\": \"<long>\"\n  }\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "3073751e-4aa2-4e98-98cf-4c6bfb3b2807",
+                                    "name": "OK",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "delivery",
+                                                ":id"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "PUT",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"uuid\": \"<uuid>\",\n  \"latitude\": \"<double>\",\n  \"longitude\": \"<double>\",\n  \"poids\": \"<double>\",\n  \"volume\": \"<double>\",\n  \"deliveryStatus\": \"FAILED\",\n  \"tourId\": \"<long>\",\n  \"tour\": {\n    \"id\": \"<long>\",\n    \"vehicule\": {\n      \"id\": \"<long>\",\n      \"vehicleType\": \"TRUCK\"\n    },\n    \"wareHouse\": {\n      \"id\": \"<long>\",\n      \"openHour\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"closeHour\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"address\": {\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"postalCode\": \"<string>\",\n        \"street\": \"<string>\"\n      },\n      \"createdAt\": \"<dateTime>\"\n    },\n    \"deliveryList\": [\n      {\n        \"id\": \"<long>\",\n        \"uuid\": \"<uuid>\",\n        \"coordinates\": {\n          \"latitude\": \"<double>\",\n          \"longitude\": \"<double>\"\n        },\n        \"deliveryStatus\": \"FAILED\",\n        \"poids\": \"<double>\",\n        \"volume\": \"<double>\",\n        \"created_at\": \"<dateTime>\"\n      },\n      {\n        \"id\": \"<long>\",\n        \"uuid\": \"<uuid>\",\n        \"coordinates\": {\n          \"latitude\": \"<double>\",\n          \"longitude\": \"<double>\"\n        },\n        \"deliveryStatus\": \"FAILED\",\n        \"poids\": \"<double>\",\n        \"volume\": \"<double>\",\n        \"created_at\": \"<dateTime>\"\n      }\n    ],\n    \"createdAt\": \"<dateTime>\",\n    \"vehiculeId\": \"<long>\",\n    \"wareHouseId\": \"<long>\"\n  }\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        },
+                        {
+                            "id": "cdd65424-bb86-42b7-8e2d-1c2d664b8644",
+                            "name": "Delete a delivery",
+                            "request": {
+                                "name": "Delete a delivery",
+                                "description": {
+                                    "content": "Delete a delivery by its ID",
+                                    "type": "text/plain"
+                                },
+                                "url": {
+                                    "path": [
+                                        "delivery",
+                                        ":id"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "type": "any",
+                                            "value": "<long>",
+                                            "key": "id",
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "method": "DELETE",
+                                "body": {},
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "1adc60cd-5476-4f5c-a03c-ed092d58778f",
+                                    "name": "OK",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "delivery",
+                                                ":id"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "method": "DELETE",
+                                        "body": {}
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [],
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "text"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "e9514961-19af-49fd-a9f3-ed3a67c79a6d",
+                    "name": "Get all deliveries",
+                    "request": {
+                        "name": "Get all deliveries",
+                        "description": {
+                            "content": "Retrieve a list of all deliveries",
+                            "type": "text/plain"
+                        },
+                        "url": {
+                            "path": [
+                                "delivery"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "*/*"
+                            }
+                        ],
+                        "method": "GET",
+                        "body": {},
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "4a9b19b3-c01d-4041-83bd-79f52a46dcb0",
+                            "name": "OK",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "delivery"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "*/*"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "*/*"
+                                }
+                            ],
+                            "body": "[\n  {\n    \"id\": \"<long>\",\n    \"uuid\": \"<uuid>\",\n    \"latitude\": \"<double>\",\n    \"longitude\": \"<double>\",\n    \"deliveryStatus\": \"<string>\",\n    \"poids\": \"<double>\",\n    \"volume\": \"<double>\",\n    \"tourId\": \"<long>\",\n    \"created_at\": \"<dateTime>\"\n  },\n  {\n    \"id\": \"<long>\",\n    \"uuid\": \"<uuid>\",\n    \"latitude\": \"<double>\",\n    \"longitude\": \"<double>\",\n    \"deliveryStatus\": \"<string>\",\n    \"poids\": \"<double>\",\n    \"volume\": \"<double>\",\n    \"tourId\": \"<long>\",\n    \"created_at\": \"<dateTime>\"\n  }\n]",
+                            "cookie": [],
+                            "_postman_previewlanguage": "text"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                },
+                {
+                    "id": "2082bd48-f5e4-40ff-829a-4a33fa9f4734",
+                    "name": "Create a new delivery",
+                    "request": {
+                        "name": "Create a new delivery",
+                        "description": {
+                            "content": "Create a new delivery with the provided details",
+                            "type": "text/plain"
+                        },
+                        "url": {
+                            "path": [
+                                "delivery"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "*/*"
+                            }
+                        ],
+                        "method": "POST",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"uuid\": \"<uuid>\",\n  \"latitude\": \"<double>\",\n  \"longitude\": \"<double>\",\n  \"poids\": \"<double>\",\n  \"volume\": \"<double>\",\n  \"deliveryStatus\": \"FAILED\",\n  \"tourId\": \"<long>\",\n  \"tour\": {\n    \"id\": \"<long>\",\n    \"vehicule\": {\n      \"id\": \"<long>\",\n      \"vehicleType\": \"TRUCK\"\n    },\n    \"wareHouse\": {\n      \"id\": \"<long>\",\n      \"openHour\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"closeHour\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"address\": {\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"postalCode\": \"<string>\",\n        \"street\": \"<string>\"\n      },\n      \"createdAt\": \"<dateTime>\"\n    },\n    \"deliveryList\": [\n      {\n        \"id\": \"<long>\",\n        \"uuid\": \"<uuid>\",\n        \"coordinates\": {\n          \"latitude\": \"<double>\",\n          \"longitude\": \"<double>\"\n        },\n        \"deliveryStatus\": \"FAILED\",\n        \"poids\": \"<double>\",\n        \"volume\": \"<double>\",\n        \"created_at\": \"<dateTime>\"\n      },\n      {\n        \"id\": \"<long>\",\n        \"uuid\": \"<uuid>\",\n        \"coordinates\": {\n          \"latitude\": \"<double>\",\n          \"longitude\": \"<double>\"\n        },\n        \"deliveryStatus\": \"FAILED\",\n        \"poids\": \"<double>\",\n        \"volume\": \"<double>\",\n        \"created_at\": \"<dateTime>\"\n      }\n    ],\n    \"createdAt\": \"<dateTime>\",\n    \"vehiculeId\": \"<long>\",\n    \"wareHouseId\": \"<long>\"\n  }\n}",
+                            "options": {
+                                "raw": {
+                                    "headerFamily": "json",
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "7971afab-68ef-4c7f-a361-7643f8ae2748",
+                            "name": "OK",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "delivery"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "*/*"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"uuid\": \"<uuid>\",\n  \"latitude\": \"<double>\",\n  \"longitude\": \"<double>\",\n  \"poids\": \"<double>\",\n  \"volume\": \"<double>\",\n  \"deliveryStatus\": \"FAILED\",\n  \"tourId\": \"<long>\",\n  \"tour\": {\n    \"id\": \"<long>\",\n    \"vehicule\": {\n      \"id\": \"<long>\",\n      \"vehicleType\": \"TRUCK\"\n    },\n    \"wareHouse\": {\n      \"id\": \"<long>\",\n      \"openHour\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"closeHour\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"address\": {\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"postalCode\": \"<string>\",\n        \"street\": \"<string>\"\n      },\n      \"createdAt\": \"<dateTime>\"\n    },\n    \"deliveryList\": [\n      {\n        \"id\": \"<long>\",\n        \"uuid\": \"<uuid>\",\n        \"coordinates\": {\n          \"latitude\": \"<double>\",\n          \"longitude\": \"<double>\"\n        },\n        \"deliveryStatus\": \"FAILED\",\n        \"poids\": \"<double>\",\n        \"volume\": \"<double>\",\n        \"created_at\": \"<dateTime>\"\n      },\n      {\n        \"id\": \"<long>\",\n        \"uuid\": \"<uuid>\",\n        \"coordinates\": {\n          \"latitude\": \"<double>\",\n          \"longitude\": \"<double>\"\n        },\n        \"deliveryStatus\": \"FAILED\",\n        \"poids\": \"<double>\",\n        \"volume\": \"<double>\",\n        \"created_at\": \"<dateTime>\"\n      }\n    ],\n    \"createdAt\": \"<dateTime>\",\n    \"vehiculeId\": \"<long>\",\n    \"wareHouseId\": \"<long>\"\n  }\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "*/*"
+                                }
+                            ],
+                            "body": "<long>",
+                            "cookie": [],
+                            "_postman_previewlanguage": "text"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                }
+            ]
+        },
+        {
+            "name": "/",
+            "description": "",
+            "item": [
+                {
+                    "id": "b4d80b19-5f23-4e39-a174-6f3f02877169",
+                    "name": "hello",
+                    "request": {
+                        "name": "hello",
+                        "description": {},
+                        "url": {
+                            "path": [
+                                ""
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "*/*"
+                            }
+                        ],
+                        "method": "GET",
+                        "body": {},
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "50980df9-b285-4042-91a0-e0a848c70c4e",
+                            "name": "OK",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        ""
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "*/*"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "*/*"
+                                }
+                            ],
+                            "body": "<string>",
+                            "cookie": [],
+                            "_postman_previewlanguage": "text"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                }
+            ]
+        }
+    ],
+    "event": [],
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "http://localhost:8080"
+        }
+    ],
+    "info": {
+        "_postman_id": "77661aaf-5586-43d0-909c-3643b105776e",
+        "name": "OpenAPI definition",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": {
+            "content": "",
+            "type": "text/plain"
+        }
+    }
+}
