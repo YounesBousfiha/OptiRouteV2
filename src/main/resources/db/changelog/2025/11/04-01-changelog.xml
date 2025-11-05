@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.31.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1762295099374-1" author="younes">
+        <createSequence incrementBy="50" sequenceName="delivery_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1762295099374-2" author="younes">
+        <createSequence incrementBy="50" sequenceName="vehicule_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1762295099374-3" author="younes">
+        <createSequence incrementBy="50" sequenceName="warehouse_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1762295099374-4" author="younes">
+        <createTable tableName="delivery">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_delivery"/>
+            </column>
+            <column name="uuid" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="delivery_status" type="VARCHAR(255)"/>
+            <column name="poids" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="volume" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tour_id" type="BIGINT"/>
+            <column name="warehouse_id" type="BIGINT"/>
+            <column name="is_optimized" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lon" type="DOUBLE"/>
+            <column name="lat" type="DOUBLE"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1762295099374-5" author="younes">
+        <createTable tableName="tour">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_tour"/>
+            </column>
+            <column name="vehicule_id" type="BIGINT"/>
+            <column name="warehouse_id" type="BIGINT"/>
+            <column name="created_at" type="DATETIME"/>
+            <column name="total_distance" type="DOUBLE"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1762295099374-6" author="younes">
+        <createTable tableName="vehicule">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_vehicule"/>
+            </column>
+            <column name="vehicle_type" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1762295099374-7" author="younes">
+        <createTable tableName="warehouse">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_warehouse"/>
+            </column>
+            <column name="open_hour" type="TIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="close_hour" type="TIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lon" type="DOUBLE"/>
+            <column name="lat" type="DOUBLE"/>
+            <column name="city" type="VARCHAR(255)"/>
+            <column name="country" type="VARCHAR(255)"/>
+            <column name="street" type="VARCHAR(255)"/>
+            <column name="postal_code" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1762295099374-8" author="younes">
+        <addForeignKeyConstraint baseColumnNames="tour_id" baseTableName="delivery" constraintName="FK_DELIVERY_ON_TOUR"
+                                 referencedColumnNames="id" referencedTableName="tour"/>
+    </changeSet>
+    <changeSet id="1762295099374-9" author="younes">
+        <addForeignKeyConstraint baseColumnNames="warehouse_id" baseTableName="delivery"
+                                 constraintName="FK_DELIVERY_ON_WAREHOUSE" referencedColumnNames="id"
+                                 referencedTableName="warehouse"/>
+    </changeSet>
+    <changeSet id="1762295099374-10" author="younes">
+        <addForeignKeyConstraint baseColumnNames="vehicule_id" baseTableName="tour" constraintName="FK_TOUR_ON_VEHICULE"
+                                 referencedColumnNames="id" referencedTableName="vehicule"/>
+    </changeSet>
+    <changeSet id="1762295099374-11" author="younes">
+        <addForeignKeyConstraint baseColumnNames="warehouse_id" baseTableName="tour"
+                                 constraintName="FK_TOUR_ON_WAREHOUSE" referencedColumnNames="id"
+                                 referencedTableName="warehouse"/>
+    </changeSet>
+
+</databaseChangeLog>

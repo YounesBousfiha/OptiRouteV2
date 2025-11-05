@@ -3,4 +3,4 @@
 target/
 DRAFT.md
 LiquideBase.md
-src/main/resources/application.properties
+src/main/resources/application.yml
