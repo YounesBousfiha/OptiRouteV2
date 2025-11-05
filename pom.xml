@@ -48,6 +48,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.liquibase.ext</groupId>
             <artifactId>liquibase-hibernate6</artifactId>
             <version>4.31.1</version> <!-- match your liquibase-core version -->
@@ -59,6 +64,23 @@
             <version>1.0.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-vault-config</artifactId>
+            <version>4.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+            <version>4.2.1</version>
+        </dependency>
 
 
         <dependency>
