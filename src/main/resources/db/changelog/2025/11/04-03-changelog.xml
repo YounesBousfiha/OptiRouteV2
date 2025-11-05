@@ -7,6 +7,12 @@
         objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
     <changeSet id="1762297119068-1" author="younes">
         <dropColumn columnName="word" tableName="warehouse"/>
+
+        <rollback>
+            <addColumn tableName="warehouse">
+                <column name="word" type="VARCHAR(255)"/>
+            </addColumn>
+        </rollback>
     </changeSet>
 
 </databaseChangeLog>
