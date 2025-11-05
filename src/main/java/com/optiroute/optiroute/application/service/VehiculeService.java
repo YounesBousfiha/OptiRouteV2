@@ -5,15 +5,19 @@ import com.optiroute.optiroute.domain.entity.Vehicule;
 import com.optiroute.optiroute.domain.repository.VehicleRepository;
 import com.optiroute.optiroute.presentation.dto.request.VehiculeRequestDTO;
 import com.optiroute.optiroute.presentation.dto.response.VehiculeResponseDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
 public class VehiculeService {
 
     private final VehicleRepository vehicleRepository;
 
+    @Autowired
     public VehiculeService(VehicleRepository vehicleRepository) {
         this.vehicleRepository = vehicleRepository;
     }
