@@ -5,10 +5,12 @@ import com.optiroute.optiroute.domain.service.MediumProblemRule;
 import com.optiroute.optiroute.domain.service.OptimizerSelectionRule;
 import com.optiroute.optiroute.domain.service.SmallProblemRule;
 import com.optiroute.optiroute.infrastructure.strategy.TourOptimizer;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class OptimizeFactory {
 
     private final List<OptimizerSelectionRule> rules;
