@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: optiroute
+  profiles:
+    active: qa
+
+  main:
+    allow-bean-definition-overriding: true
