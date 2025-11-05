@@ -17,11 +17,15 @@ import com.optiroute.optiroute.presentation.dto.request.TourRequestDTO;
 import com.optiroute.optiroute.presentation.dto.response.TourResponseDTO;
 import com.optiroute.optiroute.utility.HaversineUtil;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
+@Service
 public class TourService {
 
     private final Logger logger = AppLogger.getLogger(TourService.class);
@@ -31,6 +35,7 @@ public class TourService {
     private final DeliveryRepository deliveryRepository;
     private final  OptimizeFactory optimizeFactory;
 
+    @Autowired
     public TourService(TourRepository tourRepository,
                        VehicleRepository vehicleRepository,
                        WareHouseRepository wareHouseRepository,

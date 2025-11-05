@@ -7,18 +7,22 @@ import com.optiroute.optiroute.infrastructure.logging.AppLogger;
 import com.optiroute.optiroute.presentation.dto.request.WareHouseRequestDTO;
 import com.optiroute.optiroute.presentation.dto.response.WareHouseResponseDTO;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Service
 public class WareHouseService {
 
     private final WareHouseRepository wareHouseRepository;
 
     private final Logger logger = AppLogger.getLogger(WareHouseService.class);
 
+    @Autowired
     public WareHouseService(WareHouseRepository wareHouseRepository) {
         this.wareHouseRepository = wareHouseRepository;
     }

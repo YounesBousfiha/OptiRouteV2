@@ -11,17 +11,22 @@ import com.optiroute.optiroute.infrastructure.logging.AppLogger;
 import com.optiroute.optiroute.presentation.dto.request.DeliveryRequestDTO;
 import com.optiroute.optiroute.presentation.dto.response.DeliveryResponseDTO;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+
+@Service
 public class DeliveryService {
 
     private final Logger logger = AppLogger.getLogger(DeliveryService.class);
     private DeliveryRepository deliveryRepository;
     private final TourRepository tourRepository;
 
+    @Autowired
     public DeliveryService(DeliveryRepository deliveryRepository, TourRepository tourRepository) {
         this.tourRepository = tourRepository;
         this.deliveryRepository = deliveryRepository;
