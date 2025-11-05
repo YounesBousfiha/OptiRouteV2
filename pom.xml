@@ -31,7 +31,7 @@
         <postgres.version>42.7.3</postgres.version>
         <h2.version>2.2.224</h2.version>
 
-        <db.url>jdbc:h2:~/test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE</db.url>
+        <db.url>jdbc:h2:mem:devdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE</db.url>
         <db.username>sa</db.username>
         <db.password></db.password>
     </properties>
