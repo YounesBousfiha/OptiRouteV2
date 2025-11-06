@@ -7,8 +7,7 @@ import com.optiroute.optiroute.domain.vo.Coordinates;
 import com.optiroute.optiroute.domain.vo.PreferredTimeSlot;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
+import java.time.LocalTime;
 import java.util.function.Consumer;
 
 @Component
@@ -49,11 +48,11 @@ public class UpdateHelper {
         if(null == start && null == end) return;
 
         PreferredTimeSlot old = customer.getPreferredTimeSlot();
-        LocalDateTime newStart;
-        LocalDateTime newEnd;
+        LocalTime newStart;
+        LocalTime newEnd;
 
         if(start != null) {
-            newStart = LocalDateTime.parse(start);
+            newStart = LocalTime.parse(start);
         } else if (old != null) {
             newStart = old.start();
         } else {
@@ -61,7 +60,7 @@ public class UpdateHelper {
         }
 
         if(end != null) {
-            newEnd = LocalDateTime.parse(end);
+            newEnd = LocalTime.parse(end);
         } else if (old != null) {
             newEnd = old.end();
         } else {
