@@ -4,6 +4,7 @@ package com.optiroute.optiroute.application.service;
 import com.optiroute.optiroute.application.mapper.CustomerMapper;
 import com.optiroute.optiroute.domain.entity.Customer;
 import com.optiroute.optiroute.domain.exception.DatabaseException;
+import com.optiroute.optiroute.domain.exception.ResourceNotFoundException;
 import com.optiroute.optiroute.domain.repository.CustomerRepository;
 import com.optiroute.optiroute.presentation.dto.request.CustomerRequestDTO;
 import com.optiroute.optiroute.presentation.dto.response.CustomerResponseDTO;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,7 +55,18 @@ public class CustomerService {
     }
 
     public CustomerResponseDTO getOneCustomer(Long id) {
-        return null;
+        try {
+            Customer customer = this.customerRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("No Such Customer"));
+
+            return CustomerMapper.toDTO(customer);
+        } catch (DatabaseException ex) {
+            log.error("Exception while Fetching one Customer: {}", ex.getMessage());
+            throw new DatabaseException("Error while Fetching one Customer", ex);
+        } catch (ResourceNotFoundException ex) {
+            log.warn("No Such Customer with ID: {}", id);
+            throw ex;
+        }
     }
 
     public CustomerResponseDTO updateCustomer(Long id) {
