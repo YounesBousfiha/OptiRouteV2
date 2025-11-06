@@ -1,7 +1,9 @@
 package com.optiroute.optiroute.presentation.advice;
 
 
+import com.optiroute.optiroute.domain.exception.DatabaseException;
 import com.optiroute.optiroute.domain.exception.ResourceNotFoundException;
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +37,22 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(problemDetail);
     }
 
+    @ExceptionHandler(DatabaseException.class)
+    public ResponseEntity<ProblemDetail> handleDatabaseException(DatabaseException ex, WebRequest request) {
+
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                ex.getMessage()
+        );
+
+        problemDetail.setTitle("Database Exception");
+        problemDetail.setType(URI.create("https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/500"));
+        problemDetail.setProperty(TIMESTAMP, LocalDateTime.now());
+        problemDetail.setProperty(PATH, request.getDescription(false));
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(problemDetail);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ProblemDetail> handleGlobalException(
             Exception ex, WebRequest request
@@ -51,23 +69,6 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(problemDetail);
     }
-
-    /*@ExceptionHandler(Exception.class)
-    public ResponseEntity<ProblemDetail> handleBadRequest(
-       Exception ex, WebRequest request
-    ) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-                HttpStatus.BAD_REQUEST,
-                ex.getMessage()
-        );
-
-        problemDetail.setTitle("Bad Request");
-        problemDetail.setType(URI.create("https://developer.mozilla.org/fr/docs/Web/HTTP/Reference/Status/400"));
-        problemDetail.setProperty(TIMESTAMP, LocalDateTime.now());
-        problemDetail.setProperty(PATH, request.getDescription(false));
-
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problemDetail);
-    }*/
 
 
 }
