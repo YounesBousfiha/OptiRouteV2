@@ -25,7 +25,7 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<CustomerResponseDTO> createCustomer(CustomerRequestDTO customerRequestDTO) {
+    public ResponseEntity<CustomerResponseDTO> createCustomer(@RequestBody CustomerRequestDTO customerRequestDTO) {
         CustomerResponseDTO customerResponseDTO = this.customerService.createCustomer(customerRequestDTO);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
