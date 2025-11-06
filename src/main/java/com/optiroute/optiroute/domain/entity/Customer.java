@@ -37,6 +37,8 @@ public class Customer {
     private Coordinates coordinates;
 
     @Embedded
+    @AttributeOverride(name="start", column=@Column(name="preferred_start_time"))
+    @AttributeOverride(name="end", column=@Column(name="preferred_end_time"))
     private PreferredTimeSlot preferredTimeSlot;
 
     @CreationTimestamp
