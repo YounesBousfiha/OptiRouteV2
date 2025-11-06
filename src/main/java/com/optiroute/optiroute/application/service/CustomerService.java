@@ -16,10 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -78,6 +75,8 @@ public class CustomerService {
     }
 
     public CustomerResponseDTO updateCustomer(CustomerUpdateDTO dto , Long id) {
+
+        log.warn("Updating Customer with ID {} using DTO: {}", id, dto);
         try {
             Customer customer = this.customerRepository.findById(id)
                     .orElseThrow(() -> new ResourceNotFoundException("No Such Customer"));
