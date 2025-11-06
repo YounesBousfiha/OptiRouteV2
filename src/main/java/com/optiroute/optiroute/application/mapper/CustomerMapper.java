@@ -8,7 +8,7 @@ import com.optiroute.optiroute.presentation.dto.request.CustomerRequestDTO;
 import com.optiroute.optiroute.presentation.dto.request.CustomerUpdateDTO;
 import com.optiroute.optiroute.presentation.dto.response.CustomerResponseDTO;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class CustomerMapper {
 
@@ -37,8 +37,8 @@ public class CustomerMapper {
                 .address(new Address(dto.getCity(), dto.getCountry(), dto.getStreet(), dto.getZipCode()))
                 .coordinates(new Coordinates(dto.getLongitude(), dto.getLatitude()))
                 .preferredTimeSlot(new PreferredTimeSlot(
-                        LocalDateTime.parse(dto.getPreferredStartTime()),
-                        LocalDateTime.parse(dto.getPreferredEndTime())))
+                        LocalTime.parse(dto.getPreferredStartTime()),
+                        LocalTime.parse(dto.getPreferredEndTime())))
                 .build();
     }
 
@@ -50,8 +50,8 @@ public class CustomerMapper {
                 .address(new Address(dto.getCity(), dto.getCountry(), dto.getStreet(), dto.getZipCode()))
                 .coordinates(new Coordinates(dto.getLongitude(), dto.getLatitude()))
                 .preferredTimeSlot(new PreferredTimeSlot(
-                        dto.getPreferredStartTime() != null ? LocalDateTime.parse(dto.getPreferredStartTime()) : null,
-                        dto.getPreferredEndTime() != null ? LocalDateTime.parse(dto.getPreferredEndTime()) : null))
+                        dto.getPreferredStartTime() != null ? LocalTime.parse(dto.getPreferredStartTime()) : null,
+                        dto.getPreferredEndTime() != null ? LocalTime.parse(dto.getPreferredEndTime()) : null))
                 .build();
     }
 }
