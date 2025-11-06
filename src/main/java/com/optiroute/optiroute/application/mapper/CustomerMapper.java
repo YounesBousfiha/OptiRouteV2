@@ -5,6 +5,7 @@ import com.optiroute.optiroute.domain.vo.Address;
 import com.optiroute.optiroute.domain.vo.Coordinates;
 import com.optiroute.optiroute.domain.vo.PreferredTimeSlot;
 import com.optiroute.optiroute.presentation.dto.request.CustomerRequestDTO;
+import com.optiroute.optiroute.presentation.dto.request.CustomerUpdateDTO;
 import com.optiroute.optiroute.presentation.dto.response.CustomerResponseDTO;
 
 import java.time.LocalDateTime;
@@ -38,6 +39,19 @@ public class CustomerMapper {
                 .preferredTimeSlot(new PreferredTimeSlot(
                         LocalDateTime.parse(dto.getPreferredStartTime()),
                         LocalDateTime.parse(dto.getPreferredEndTime())))
+                .build();
+    }
+
+    public static Customer toUpdateEntity(CustomerUpdateDTO dto) {
+        if ( null == dto ) return null;
+
+        return Customer.builder()
+                .name(dto.getName())
+                .address(new Address(dto.getCity(), dto.getCountry(), dto.getStreet(), dto.getZipCode()))
+                .coordinates(new Coordinates(dto.getLongitude(), dto.getLatitude()))
+                .preferredTimeSlot(new PreferredTimeSlot(
+                        dto.getPreferredStartTime() != null ? LocalDateTime.parse(dto.getPreferredStartTime()) : null,
+                        dto.getPreferredEndTime() != null ? LocalDateTime.parse(dto.getPreferredEndTime()) : null))
                 .build();
     }
 }
