@@ -58,4 +58,9 @@ public class Delivery {
 
     @Column(name = "is_optimized", nullable = false)
     private Boolean isOptimized = false;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    @JsonIgnore
+    private Customer customer;
 }
