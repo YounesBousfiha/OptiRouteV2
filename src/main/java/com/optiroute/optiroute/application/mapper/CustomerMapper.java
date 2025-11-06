@@ -11,8 +11,10 @@ import java.time.LocalDateTime;
 
 public class CustomerMapper {
 
-
-    public CustomerResponseDTO toDTO(Customer customer) {
+    private CustomerMapper() {
+        /* for SonarQube */
+    }
+    public static CustomerResponseDTO toDTO(Customer customer) {
         if(null == customer) return null;
 
         return CustomerResponseDTO.builder()
