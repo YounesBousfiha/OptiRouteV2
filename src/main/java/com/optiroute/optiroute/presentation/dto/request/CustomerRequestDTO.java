@@ -1,8 +1,8 @@
 package com.optiroute.optiroute.presentation.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 @Builder
@@ -12,6 +12,7 @@ import lombok.*;
 @NoArgsConstructor
 
 public class CustomerRequestDTO {
+
     @NotBlank(message = "Name is required")
     private String name;
 
@@ -35,9 +36,11 @@ public class CustomerRequestDTO {
     @NotNull(message = "Longitude is required")
     private Double longitude;
 
-    @Pattern(regexp = "^([01]?\\d|2[0-3]):[0-5]\\d$", message = "Start time must be in HH:mm format")
+    @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private String preferredStartTime;
 
-    @Pattern(regexp = "^([01]?\\d|2[0-3]):[0-5]\\d$", message = "Start time must be in HH:mm format")
+    @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private String preferredEndTime;
 }
