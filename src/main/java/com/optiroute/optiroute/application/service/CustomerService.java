@@ -47,10 +47,14 @@ public class CustomerService {
 
     public CustomerResponseDTO createCustomer(@Valid CustomerRequestDTO dto) {
         try {
+
+            log.warn("Creating Customer from DTO: {}", dto);
             Customer customer = CustomerMapper.toEntity(dto);
 
+            log.warn("Creating Customer: {}", customer);
             Customer newCustomer = this.customerRepository.save(customer);
 
+            log.warn("Created Customer: {}", newCustomer);
             return CustomerMapper.toDTO(newCustomer);
         } catch (Exception ex) {
             log.error("Exception while create Customer: {}", ex.getMessage());
