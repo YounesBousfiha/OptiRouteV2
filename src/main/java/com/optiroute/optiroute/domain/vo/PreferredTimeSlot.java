@@ -2,11 +2,11 @@ package com.optiroute.optiroute.domain.vo;
 
 import jakarta.persistence.Embeddable;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Embeddable
 public record PreferredTimeSlot(
-        LocalDateTime start,
-        LocalDateTime end
+        LocalTime start,
+        LocalTime end
 ) {
 }
