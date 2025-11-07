@@ -7,6 +7,10 @@ import com.optiroute.optiroute.presentation.dto.response.DeliveryResponseDTO;
 
 public class DeliveryMapper {
 
+    private DeliveryMapper() {
+        // Private constructor to prevent instantiation
+    }
+    
     public static Delivery toEntity(DeliveryRequestDTO dto) {
         if (null == dto) return null;
 
@@ -17,6 +21,7 @@ public class DeliveryMapper {
                 .poids(dto.getPoids())
                 .volume(dto.getVolume())
                 .deliveryStatus(dto.getDeliveryStatus())
+                .plannedDeliveryTime(dto.getPlannedDeliveryTime())
                 .build();
     }
 
@@ -33,7 +38,9 @@ public class DeliveryMapper {
                 .volume(delivery.getVolume())
                 .deliveryStatus(String.valueOf(delivery.getDeliveryStatus()))
                 .tourId(delivery.getTour() != null ? delivery.getId() : null)
-                .created_at(delivery.getCreated_at())
+                .plannedDeliveryTime(delivery.getPlannedDeliveryTime())
+                .actualDeliveryTime(delivery.getActualDeliveryTime())
+                .createdAt(delivery.getCreated_at())
                 .build();
     }
 }

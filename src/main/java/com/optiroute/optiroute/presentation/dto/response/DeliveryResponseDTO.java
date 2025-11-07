@@ -30,6 +30,10 @@ public class DeliveryResponseDTO {
 
     private Long tourId;
 
-    private LocalDateTime created_at;
+    private LocalDateTime plannedDeliveryTime;
+
+    private LocalDateTime actualDeliveryTime;
+
+    private LocalDateTime createdAt;
 
 }

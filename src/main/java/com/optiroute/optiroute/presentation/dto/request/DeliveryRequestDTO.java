@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 
@@ -28,6 +29,8 @@ public class DeliveryRequestDTO {
     private Double volume;
 
     private DeliveryStatus deliveryStatus;
+
+    private LocalDateTime plannedDeliveryTime;
 
     private Tour tour;
 }
