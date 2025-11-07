@@ -59,6 +59,12 @@ public class Delivery {
     @Column(name = "is_optimized", nullable = false)
     private Boolean isOptimized = false;
 
+    @Column(name = "planned_delivery_time")
+    private LocalDateTime plannedDeliveryTime;
+
+    @Column(name = "actual_delivery_time")
+    private LocalDateTime actualDeliveryTime;
+
     @ManyToOne
     @JoinColumn(name = "customer_id")
     @JsonIgnore
