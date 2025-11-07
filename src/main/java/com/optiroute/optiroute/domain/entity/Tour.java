@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -37,6 +38,9 @@ public class Tour {
     @CreationTimestamp
     @Column(name = "createdAt")
     private LocalDateTime createdAt;
+
+    @Column(name = "tour_date")
+    private LocalDate tourDate;
 
     @Column(name = "totalDistance")
     private double totalDistance;
