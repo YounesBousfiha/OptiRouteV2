@@ -10,7 +10,7 @@ public class DeliveryMapper {
     private DeliveryMapper() {
         // Private constructor to prevent instantiation
     }
-    
+
     public static Delivery toEntity(DeliveryRequestDTO dto) {
         if (null == dto) return null;
 
