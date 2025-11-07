@@ -12,6 +12,7 @@ import java.time.LocalTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 @Builder
 @Table(name = "delivery_history")
 public class DeliveryHistory {
