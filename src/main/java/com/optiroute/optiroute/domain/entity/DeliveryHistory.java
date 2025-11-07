@@ -21,6 +21,10 @@ public class DeliveryHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "delivery_id", nullable = false)
+    private Delivery delivery;
+
     @Column(name = "delivery_date", nullable = false)
     private LocalDate deliveryDate;
 
