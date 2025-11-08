@@ -65,4 +65,10 @@ public class TourController {
         this.tourService.updateTour(id, dto);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/{id}/start")
+    public ResponseEntity<Void> startTour(@PathVariable Long id) {
+        this.tourService.startTour(id);
+        return ResponseEntity.noContent().build();
+    }
 }
