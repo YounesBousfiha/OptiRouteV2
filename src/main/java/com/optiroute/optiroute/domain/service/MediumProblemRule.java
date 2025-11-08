@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 
-// TODO: add more Conditions Here
 public class MediumProblemRule implements OptimizerSelectionRule{
 
     @Override
