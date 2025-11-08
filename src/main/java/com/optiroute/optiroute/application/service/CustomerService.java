@@ -141,4 +141,15 @@ public class CustomerService {
     }
 
 
+    public List<CustomerResponseDTO> getCustomerByName(String word) {
+        try {
+            return this.customerRepository.findByNameContainingIgnoreCase(word)
+                    .stream()
+                    .map(CustomerMapper::toDTO)
+                    .toList();
+        } catch (DatabaseException ex) {
+            log.error("Database Exception while Fetch All Customer: {}", ex.getMessage());
+            throw new DatabaseException("Failed to fetch customer contain: {}", ex);
+        }
+    }
 }
