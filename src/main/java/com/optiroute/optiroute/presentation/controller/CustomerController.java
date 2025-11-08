@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/customer")
@@ -49,6 +50,15 @@ public class CustomerController {
     public ResponseEntity<CustomerResponseDTO> getCustomerById(@PathVariable("id") Long id) {
         CustomerResponseDTO customerResponseDTO = this.customerService.getOneCustomer(id);
         return ResponseEntity.ok(customerResponseDTO);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<CustomerResponseDTO>> searchByName(
+            @RequestParam("word") String word
+    ) {
+        List<CustomerResponseDTO> customersList = this.customerService.getCustomerByName(word);
+
+        return ResponseEntity.ok(customersList);
     }
 
     @PatchMapping("/{id}")
