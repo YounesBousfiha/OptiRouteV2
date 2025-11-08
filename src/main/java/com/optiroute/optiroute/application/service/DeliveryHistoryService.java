@@ -1,11 +1,13 @@
 package com.optiroute.optiroute.application.service;
 
+import com.optiroute.optiroute.application.mapper.ComplexResponseMapper;
 import com.optiroute.optiroute.domain.entity.Customer;
 import com.optiroute.optiroute.domain.entity.Delivery;
 import com.optiroute.optiroute.domain.entity.DeliveryHistory;
 import com.optiroute.optiroute.domain.entity.Tour;
 import com.optiroute.optiroute.domain.event.TourCompletedEvent;
 import com.optiroute.optiroute.domain.repository.DeliveryHistoryRepository;
+import com.optiroute.optiroute.presentation.dto.response.ComplexResponseDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
@@ -28,6 +30,14 @@ public class DeliveryHistoryService {
     @Autowired
     public DeliveryHistoryService(DeliveryHistoryRepository deliveryHistoryRepository) {
         this.deliveryHistoryRepository = deliveryHistoryRepository;
+    }
+
+    public List<ComplexResponseDTO> getComplexData(long delayInMinutes, int limit, int offset) {
+        List<DeliveryHistory> deliveryHistories = this.deliveryHistoryRepository.findComplexData(delayInMinutes, limit, offset);
+
+        return deliveryHistories.stream()
+                .map(ComplexResponseMapper::toDTO)
+                .toList();
     }
 
     @EventListener
