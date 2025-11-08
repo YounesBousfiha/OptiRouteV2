@@ -5,8 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -25,14 +24,11 @@ public class DeliveryHistory {
     @JoinColumn(name = "delivery_id", nullable = false)
     private Delivery delivery;
 
-    @Column(name = "delivery_date", nullable = false)
-    private LocalDate deliveryDate;
-
     @Column(name = "planned_delivery_time", nullable = false)
-    private LocalTime plannedDeliveryTime;
+    private LocalDateTime plannedDeliveryTime;
 
     @Column(name = "actual_delivery_time", nullable = false)
-    private LocalTime actualDeliveryTime;
+    private LocalDateTime actualDeliveryTime;
 
     @Column(name = "delay_in_minutes", nullable = false)
     private Long delayInMinutes;
