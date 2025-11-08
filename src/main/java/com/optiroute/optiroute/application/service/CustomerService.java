@@ -10,10 +10,15 @@ import com.optiroute.optiroute.domain.repository.CustomerRepository;
 import com.optiroute.optiroute.presentation.dto.request.CustomerRequestDTO;
 import com.optiroute.optiroute.presentation.dto.request.CustomerUpdateDTO;
 import com.optiroute.optiroute.presentation.dto.response.CustomerResponseDTO;
+import com.optiroute.optiroute.presentation.dto.response.PagedResponseDTO;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,11 +36,31 @@ public class CustomerService {
         this.updateHelper = updateHelper;
     }
 
-    public List<CustomerResponseDTO> getAllCustomers() {
+    public PagedResponseDTO<CustomerResponseDTO> getAllCustomers(int page, int size, String sortBy, String direction) {
         try {
-            return customerRepository.findAll().stream()
+            int adjustedPage = (page <= 0) ? 0 : page - 1;
+
+            Sort sort = direction.equalsIgnoreCase("desc")
+                    ? Sort.by(sortBy).descending()
+                    : Sort.by(sortBy).ascending();
+
+            Pageable pageable = PageRequest.of(adjustedPage, size, sort);
+
+            Page<Customer> customerPage = this.customerRepository.findAll(pageable);
+
+            List<CustomerResponseDTO> customers = customerPage.getContent().stream()
                     .map(CustomerMapper::toDTO)
                     .toList();
+
+            return PagedResponseDTO.<CustomerResponseDTO>builder()
+                    .data(customers)
+                    .currentPage(customerPage.getNumber() + 1)
+                    .totalPages(customerPage.getTotalPages())
+                    .totalElements(customerPage.getTotalElements())
+                    .pageSize(customerPage.getSize())
+                    .hasNext(customerPage.hasNext())
+                    .hasPrevious(customerPage.hasPrevious())
+                    .build();
         } catch (DataAccessException ex) {
             log.error("Database Exception While Fetch All Customer: {}", ex.getMessage());
             throw new DatabaseException("Failed to fetch customers", ex);
