@@ -21,3 +21,7 @@ databaseChangeLog:
       file: db/changelog/2025/11/07-03-changelog.xml
   - include:
       file: db/changelog/2025/11/07-04-changelog.xml
+  - include:
+      file: db/changelog/2025/11/08-01-changelog.xml
+  - include:
+      file: db/changelog/2025/11/08-02-changelog.xml
