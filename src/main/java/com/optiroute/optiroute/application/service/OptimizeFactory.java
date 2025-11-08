@@ -19,6 +19,7 @@ public class OptimizeFactory {
         this.rules = List.of(
                 new SmallProblemRule(),
                 new MediumProblemRule()
+                // TODO: add AI rule Optimizer Here
         );
     }
 
