@@ -3,6 +3,9 @@ spring:
     name: optiroute
   profiles:
     active: qa
+  ai:
+    deepseek:
+      api-key: ${DEEPSEEK_APIKEY}
 
   main:
     allow-bean-definition-overriding: true
