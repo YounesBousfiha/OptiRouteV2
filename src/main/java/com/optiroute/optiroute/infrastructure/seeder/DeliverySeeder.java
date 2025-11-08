@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Component
 @RequiredArgsConstructor
@@ -29,21 +30,26 @@ public class DeliverySeeder implements Seeder {
 
     @Override
     public void seed() {
-        if(deliveryRepository.count() > 0) return;
-        List<Delivery> deliveryList = new ArrayList<>();
-        List<Customer> customerList = customerRepository.findAll();
-        Optional<WareHouse> wareHouse = wareHouseRepository.findById(1L);
+        if (deliveryRepository.count() > 0) return;
 
-        for (int i = 1; i < customerRepository.count() ; i++) {
-            Customer customer = customerList.get(i);
-            LocalDateTime randomTime = LocalDateTime.now().toLocalDate().atTime((int)(Math.random() * 9) + 8, 0);
+        List<Customer> customerList = customerRepository.findAll();
+        if (customerList.isEmpty()) return; // no customers to assign
+
+        Optional<WareHouse> wareHouse = wareHouseRepository.findById(1L);
+        List<Delivery> deliveryList = new ArrayList<>();
+
+        int customerCount = customerList.size();
+        for (int i = 0; i < 500; i++) {
+            Customer customer = customerList.get(i % customerCount);
+
+            int hour = ThreadLocalRandom.current().nextInt(8, 17);
+            LocalDateTime randomTime = LocalDateTime.now().toLocalDate().atTime(hour, 0);
+
             Delivery delivery = Delivery.builder()
                     .uuid(UUID.randomUUID())
-                    .coordinates(
-                            new Coordinates(
-                                    customer.getCoordinates().longitude(),
-                                    customer.getCoordinates().latitude())
-                    )
+                    .coordinates(new Coordinates(
+                            customer.getCoordinates().longitude(),
+                            customer.getCoordinates().latitude()))
                     .deliveryStatus(DeliveryStatus.PENDING)
                     .poids(10 + Math.random() * 50)
                     .volume(0.1 + Math.random() * 2)
@@ -52,6 +58,7 @@ public class DeliverySeeder implements Seeder {
                     .customer(customer)
                     .isOptimized(false)
                     .build();
+
             deliveryList.add(delivery);
         }
         this.deliveryRepository.saveAll(deliveryList);
