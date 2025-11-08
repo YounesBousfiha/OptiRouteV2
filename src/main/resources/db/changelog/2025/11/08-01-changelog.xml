@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.31.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1762561665513-1" author="younes">
+        <dropColumn columnName="actual_delivery_time" tableName="delivery_history"/>
+
+        <dropColumn columnName="planned_delivery_time" tableName="delivery_history"/>
+    </changeSet>
+    <changeSet id="1762561665513-2" author="younes">
+        <addColumn tableName="delivery_history">
+            <column name="actual_delivery_time" type="DATETIME">
+                <constraints nullable="false" validateNullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1762561665513-4" author="younes">
+        <addColumn tableName="delivery_history">
+            <column name="planned_delivery_time" type="DATETIME">
+                <constraints nullable="false" validateNullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>
