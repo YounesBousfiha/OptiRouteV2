@@ -6,20 +6,21 @@ import com.optiroute.optiroute.domain.entity.Tour;
 import com.optiroute.optiroute.domain.entity.Vehicule;
 import com.optiroute.optiroute.domain.entity.WareHouse;
 import com.optiroute.optiroute.domain.enums.DeliveryStatus;
+import com.optiroute.optiroute.domain.event.TourCompletedEvent;
 import com.optiroute.optiroute.domain.repository.DeliveryRepository;
 import com.optiroute.optiroute.domain.repository.TourRepository;
 import com.optiroute.optiroute.domain.repository.VehicleRepository;
 import com.optiroute.optiroute.domain.repository.WareHouseRepository;
-import com.optiroute.optiroute.infrastructure.logging.AppLogger;
 import com.optiroute.optiroute.infrastructure.strategy.TourOptimizer;
 import com.optiroute.optiroute.presentation.dto.request.OptimizationRequestDTO;
 import com.optiroute.optiroute.presentation.dto.request.TourRequestDTO;
 import com.optiroute.optiroute.presentation.dto.response.TourResponseDTO;
 import com.optiroute.optiroute.utility.HaversineUtil;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -28,24 +29,26 @@ import java.util.stream.Collectors;
 @Service
 public class TourService {
 
-    private final Logger logger = AppLogger.getLogger(TourService.class);
     private final TourRepository tourRepository;
     private final VehicleRepository vehicleRepository;
     private final WareHouseRepository wareHouseRepository;
     private final DeliveryRepository deliveryRepository;
     private final  OptimizeFactory optimizeFactory;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Autowired
     public TourService(TourRepository tourRepository,
                        VehicleRepository vehicleRepository,
                        WareHouseRepository wareHouseRepository,
                        DeliveryRepository deliveryRepository,
-                       OptimizeFactory optimizeFactory) {
+                       OptimizeFactory optimizeFactory,
+                       ApplicationEventPublisher eventPublisher) {
         this.vehicleRepository = vehicleRepository;
         this.wareHouseRepository = wareHouseRepository;
         this.tourRepository = tourRepository;
         this.deliveryRepository = deliveryRepository;
         this.optimizeFactory = optimizeFactory;
+        this.eventPublisher = eventPublisher;
     }
 
 
@@ -172,5 +175,20 @@ public class TourService {
 
     public Optional<Tour> findById(Long id) {
         return this.tourRepository.findById(id);
+    }
+
+
+    public void startTour(Long id) {
+        Tour tour = this.tourRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Tour not found"));
+
+        List<Delivery> deliveries = tour.getDeliveryList();
+        for(Delivery delivery : deliveries) {
+            delivery.setDeliveryStatus(DeliveryStatus.DELIVERED);
+            delivery.setActualDeliveryTime(LocalDateTime.now());
+        }
+        eventPublisher.publishEvent(new TourCompletedEvent(tour));
+
+        this.deliveryRepository.saveAll(deliveries);
     }
 }
