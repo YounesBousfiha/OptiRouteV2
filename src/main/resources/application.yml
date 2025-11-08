@@ -6,6 +6,8 @@ spring:
   ai:
     deepseek:
       api-key: ${DEEPSEEK_APIKEY}
-
   main:
     allow-bean-definition-overriding: true
+
+optimize:
+  strategy: ai
