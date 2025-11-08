@@ -5,13 +5,13 @@ import com.optiroute.optiroute.application.service.CustomerService;
 import com.optiroute.optiroute.presentation.dto.request.CustomerRequestDTO;
 import com.optiroute.optiroute.presentation.dto.request.CustomerUpdateDTO;
 import com.optiroute.optiroute.presentation.dto.response.CustomerResponseDTO;
+import com.optiroute.optiroute.presentation.dto.response.PagedResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/customer")
@@ -35,8 +35,13 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CustomerResponseDTO>> getAllCustomers() {
-        List<CustomerResponseDTO> customerResponseDTOS = this.customerService.getAllCustomers();
+    public ResponseEntity<PagedResponseDTO<CustomerResponseDTO>> getAllCustomers(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction
+    ) {
+        PagedResponseDTO<CustomerResponseDTO> customerResponseDTOS = this.customerService.getAllCustomers(page, size, sortBy, direction);
         return ResponseEntity.ok(customerResponseDTOS);
     }
 
