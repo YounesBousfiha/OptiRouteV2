@@ -17,4 +17,9 @@ public interface DeliveryHistoryRepository extends JpaRepository<DeliveryHistory
             @Param("limit") int limit,
             @Param("offset") int offset
     );
+
+    @Query("SELECT dh FROM DeliveryHistory dh ORDER BY RAND() LIMIT:size")
+    List<DeliveryHistory> findRandomSamples(
+            @Param("size") int size
+    );
 }
