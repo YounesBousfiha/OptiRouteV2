@@ -10,10 +10,15 @@ import java.util.Optional;
 
 public class MediumProblemRule implements OptimizerSelectionRule{
 
+    private final ClarkeWrightOptimizer optimizer;
+
+    public MediumProblemRule(ClarkeWrightOptimizer optimizer) {
+        this.optimizer = optimizer;
+    }
     @Override
     public Optional<TourOptimizer> getOptimizer(List<Delivery> deliveryList) {
-        if(deliveryList.size() >= 20 && deliveryList.size() <= 50) {
-            return Optional.of(new ClarkeWrightOptimizer());
+        if(deliveryList.size() >= 11 && deliveryList.size() <= 25) {
+            return Optional.of(this.optimizer);
         }
 
         return Optional.empty();
