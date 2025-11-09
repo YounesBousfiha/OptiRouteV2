@@ -21,6 +21,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -61,8 +62,10 @@ public class TourService {
         Vehicule vehicule = this.vehicleRepository.findById(optimizationRequestDTO.getVehiculeId())
                 .orElseThrow(() -> new RuntimeException("Vehicle not found"));
 
+        List<Delivery> allPendingDeliveries = this.deliveryRepository.findPendingDeliveriesForWarehouse(wareHouse.getId());
 
-        List<Delivery> deliveriesToOptimize = this.deliveryRepository.findPendingDeliveriesForWarehouse(wareHouse.getId());
+        List<Delivery> deliveriesToOptimize = this.filterByVehiculeCapacity(allPendingDeliveries, vehicule);
+
 
         TourOptimizer optimizer = this.optimizeFactory.createOptimize(deliveriesToOptimize);
 
@@ -190,5 +193,26 @@ public class TourService {
         eventPublisher.publishEvent(new TourCompletedEvent(tour));
 
         this.deliveryRepository.saveAll(deliveries);
+    }
+
+    private List<Delivery> filterByVehiculeCapacity(List<Delivery> deliveries, Vehicule vehicule) {
+        List<Delivery> selectedDeliveries = new ArrayList<>();
+        double currentWeight = 0.0;
+        double currentVolume = 0.0;
+        double maxWeight = vehicule.getVehicleType().getMaxWeightKg();
+        double maxVolume = vehicule.getVehicleType().getMaxVolumeM3();
+
+        for(Delivery delivery : deliveries) {
+            double deliveryWeight = delivery.getPoids();
+            double deliveryVolume = delivery.getVolume();
+
+            if(currentWeight + deliveryWeight <= maxWeight && currentVolume + deliveryVolume <= maxVolume) {
+                selectedDeliveries.add(delivery);
+                currentVolume += deliveryVolume;
+                currentWeight += deliveryWeight;
+            }
+        }
+
+        return selectedDeliveries;
     }
 }
