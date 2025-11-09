@@ -6,9 +6,12 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.optiroute.optiroute.domain.entity.*;
 import com.optiroute.optiroute.domain.repository.DeliveryHistoryRepository;
+import jakarta.annotation.PostConstruct;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +21,19 @@ import java.util.List;
 public class AIOptimizer implements TourOptimizer {
 
     private final int SAMPLES_SIZE = 15;
-    private final DeliveryHistoryRepository deliveryHistoryRepository;
-    private final ChatClient chatClient;
 
-    public AIOptimizer(ChatClient.Builder chatClientBuilder, DeliveryHistoryRepository deliveryHistoryRepository) {
+    @Autowired
+    private DeliveryHistoryRepository deliveryHistoryRepository;
+
+    @Autowired
+    private ChatClient.Builder chatClientBuilder;
+
+    private ChatClient chatClient;
+
+
+    @PostConstruct
+    public void init() {
         this.chatClient = chatClientBuilder.build();
-        this.deliveryHistoryRepository = deliveryHistoryRepository;
     }
 
     @Override
@@ -33,7 +43,7 @@ public class AIOptimizer implements TourOptimizer {
         ObjectNode prompt = buildPrompt(wareHouse, deliveryList, vehicule, deliveryHistories);
         String aiResponse = callAI(prompt);
 
-        return parseTour(aiResponse, vehicule);
+        return parseTour(aiResponse, deliveryList);
     }
 
 
@@ -84,15 +94,15 @@ public class AIOptimizer implements TourOptimizer {
         return root;
     }
 
-    private String callAI(ObjectNode prompt) {
-        return this.chatClient.prompt(prompt.toString())
+    private String callAI(ObjectNode promptText) {
+        return this.chatClient.prompt(promptText.toString())
                 .call()
                 .content();
     }
 
-    private List<Delivery> parseTour(String aiResponse, Vehicule vehicule, List<Delivery> originalDeliveries) {
+    private List<Delivery> parseTour(String aiResponse, List<Delivery> originalDeliveries) {
         ObjectMapper mapper = new ObjectMapper();
-        List<Delivery> orderedDelivries = new ArrayList<>();
+        List<Delivery> orderedDeliveries = new ArrayList<>();
 
         try {
             JsonNode root = mapper.readTree(aiResponse);
@@ -103,12 +113,12 @@ public class AIOptimizer implements TourOptimizer {
                 originalDeliveries.stream()
                         .filter(del -> del.getId().equals(deliveryId))
                         .findFirst()
-                        .ifPresent(originalDeliveries::add);
+                        .ifPresent(orderedDeliveries::add);
             }
         } catch (Exception e) {
             throw  new RuntimeException("Failed to parse AI response", e);
         }
 
-        return orderedDelivries;
+        return orderedDeliveries;
     }
 }
