@@ -7,9 +7,11 @@ import com.optiroute.optiroute.domain.enums.VehicleType;
 import com.optiroute.optiroute.presentation.dto.request.OptimizationRequestDTO;
 import com.optiroute.optiroute.presentation.dto.request.WareHouseRequestDTO;
 import com.optiroute.optiroute.utility.HaversineUtil;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+@Component
 public class NearestNeighborOptimizer implements TourOptimizer {
     @Override
     public List<Delivery> calculateOptimalTour(WareHouse wareHouse, List<Delivery> deliveryList, Vehicule vehicule) {
