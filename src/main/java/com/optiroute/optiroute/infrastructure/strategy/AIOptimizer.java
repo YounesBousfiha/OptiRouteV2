@@ -7,17 +7,18 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.optiroute.optiroute.domain.entity.*;
 import com.optiroute.optiroute.domain.repository.DeliveryHistoryRepository;
 import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 @ConditionalOnProperty(name = "optimizer.strategy", havingValue = "ai", matchIfMissing = true)
+@Slf4j
 public class AIOptimizer implements TourOptimizer {
 
     private final int SAMPLES_SIZE = 15;
@@ -33,25 +34,32 @@ public class AIOptimizer implements TourOptimizer {
 
     @PostConstruct
     public void init() {
+        log.warn("AI Optimizer Initializer");
         this.chatClient = chatClientBuilder.build();
     }
 
     @Override
     public List<Delivery> calculateOptimalTour(WareHouse wareHouse, List<Delivery> deliveryList, Vehicule vehicule) {
-
+        log.warn("AI Optimizer Start Claculation");
         List<DeliveryHistory> deliveryHistories = getRandomSamples();
-        ObjectNode prompt = buildPrompt(wareHouse, deliveryList, vehicule, deliveryHistories);
-        String aiResponse = callAI(prompt);
-
-        return parseTour(aiResponse, deliveryList);
+        log.warn("deliveries History Samlpes : {}", deliveryHistories);
+       ObjectNode prompt = buildPrompt(wareHouse, deliveryList, vehicule, deliveryHistories);
+       log.warn("Prompt Completed: {}", prompt.toPrettyString());
+       String aiResponse = callAI(prompt);
+       log.warn("AI response : {} ", aiResponse);
+        // return parseTour(aiResponse, deliveryList);
+        return List.of();
     }
 
 
     private List<DeliveryHistory>  getRandomSamples() {
+
         return this.deliveryHistoryRepository.findRandomSamples(SAMPLES_SIZE);
     }
 
     private ObjectNode buildPrompt(WareHouse wareHouse, List<Delivery> deliveryList, Vehicule vehicule, List<DeliveryHistory> deliveryHistories) {
+
+        log.warn("Start Building a Prompt ");
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode root = mapper.createObjectNode();
 
@@ -90,7 +98,6 @@ public class AIOptimizer implements TourOptimizer {
                 .add("optimized_deliveries")
                 .add("recommendations")
                 .add("predicted_best_routes");
-
         return root;
     }
 
