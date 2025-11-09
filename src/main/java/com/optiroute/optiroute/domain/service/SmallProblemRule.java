@@ -8,11 +8,16 @@ import java.util.List;
 import java.util.Optional;
 
 public class SmallProblemRule implements OptimizerSelectionRule {
+    private final NearestNeighborOptimizer optimizer;
+
+    public SmallProblemRule(NearestNeighborOptimizer optimizer) {
+        this.optimizer = optimizer;
+    }
 
     @Override
     public Optional<TourOptimizer> getOptimizer(List<Delivery> deliveryList) {
-        if(!deliveryList.isEmpty() && deliveryList.size() <= 600) {
-            return Optional.of(new NearestNeighborOptimizer());
+        if(!deliveryList.isEmpty() && deliveryList.size() <= 10) {
+            return Optional.of(this.optimizer);
         }
 
         return Optional.empty();
