@@ -1,0 +1,54 @@
+services:
+  vault:
+    image: hashicorp/vault:latest
+    container_name: vault-dev
+    ports:
+      - "8201:8201"
+    environment:
+      - VAULT_DEV_ROOT_TOKEN_ID=${VAULT_TOKEN}
+      - VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:8200
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - ./vault-init:/vault-init
+      - ./.env.vault-init/.env.vault:/vault-init/.env.vault:ro
+    entrypoint: >
+      sh -c "
+        vault server -dev -dev-root-token-=${VAULT_TOKEN}
+        sleep 3
+        export VAULT_ADDR=http://127.0.0.1:8200 &&
+        export VAULT_TOKEN=${VAULT_TOKEN} &&
+        sh /vault-init/init-secrets.sh &&
+        tail -f /dev/null
+      "
+  postgres:
+    image: postgres:15
+    container_name: postgres-db
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./
+    container_name: spring-api
+    depends_on:
+      - postgres
+      - vault
+    environment:
+      - SPRING_PROFILES_ACTIVE=qa
+      - SPRING_CLOUD_VAULT_URI=http://vault:8200
+      - SPRING_CLOUD_VAULT_TOKEN=${VAULT_TOKEN}
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+
