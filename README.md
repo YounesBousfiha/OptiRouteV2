@@ -22,13 +22,17 @@ A sophisticated route optimization system built with Spring Boot that implements
 
 ### Key Features
 
-- **Route Optimization**: Multiple algorithms (Nearest Neighbor, Clarke-Wright Savings)
+- **Route Optimization**: Multiple algorithms (Nearest Neighbor, Clarke-Wright Savings, AI-Powered)
+- **AI-Powered Optimization**: Deep learning integration using DeepSeek AI for intelligent route planning based on historical delivery patterns
 - **Multi-Vehicle Support**: Different vehicle types (Van, Truck, Bike) with varying capacities
+- **Customer Management**: Customer profiles with preferred delivery time slots
 - **Warehouse Management**: Multiple warehouses with operating hours
-- **Delivery Tracking**: Real-time delivery status monitoring
+- **Delivery Tracking**: Real-time delivery status monitoring with historical data
+- **Delivery History Analytics**: Tracks delivery performance, delays, and patterns for AI learning
 - **RESTful API**: Complete CRUD operations for all entities
 - **Database Migrations**: Liquibase for version-controlled schema changes
 - **API Documentation**: Interactive Swagger/OpenAPI documentation
+- **HashiCorp Vault Integration**: Secure secrets management for API keys and credentials
 
 ## 🏗️ SOLID Principles - Open/Closed Principle (OCP)
 
@@ -41,13 +45,17 @@ The system uses the **Strategy Pattern** to implement different route optimizati
 ```
 TourOptimizer (Interface)
     ├── NearestNeighborOptimizer
-    └── ClarkeWrightOptimizer
+    ├── ClarkeWrightOptimizer
+    └── AIOptimizer (DeepSeek-powered)
 ```
 
 **How it implements OCP:**
 - **Closed for modification**: The `TourOptimizer` interface defines a contract that remains stable
 - **Open for extension**: New optimization algorithms can be added by simply implementing the `TourOptimizer` interface
-- **Benefit**: Adding new algorithms (e.g., Genetic Algorithm, Ant Colony Optimization) requires no changes to existing code
+- **Benefit**: Adding new algorithms (e.g., Genetic Algorithm, Ant Colony Optimization, or AI-based optimizers like our AIOptimizer using DeepSeek) requires no changes to existing code
+
+**Recent Extension Example:**
+The `AIOptimizer` was added to leverage DeepSeek AI for route optimization based on historical delivery data without modifying the existing `NearestNeighborOptimizer` or `ClarkeWrightOptimizer` implementations.
 
 ### 2. Service Layer Abstraction
 
@@ -75,8 +83,9 @@ JPA repositories provide data access abstraction, allowing the underlying persis
 - `TourOptimizer` interface defines the contract
 - `NearestNeighborOptimizer`: Greedy algorithm that always picks the nearest unvisited delivery
 - `ClarkeWrightOptimizer`: Savings algorithm that merges routes to maximize efficiency
+- `AIOptimizer`: AI-powered optimizer using DeepSeek API that learns from historical delivery patterns
 
-**Benefit**: Algorithms can be swapped at runtime based on requirements (speed vs. optimization quality).
+**Benefit**: Algorithms can be swapped at runtime based on requirements (speed vs. optimization quality vs. AI-powered intelligence).
 
 ### 2. **Repository Pattern**
 **Location**: `domain.repository` package
@@ -188,11 +197,16 @@ Address                 Vehicule (1) ──→ (N) Tour
                              ↓
                         VehicleType
                         
-Tour (1) ──────────→ (N) Delivery
-                         ↓ has
-                     Coordinates
-                         ↓ has
-                    DeliveryStatus
+Tour (1) ──────────→ (N) Delivery ←────── (N) Customer
+                         ↓ has                 ↓ has
+                     Coordinates          PreferredTimeSlot
+                         ↓ has                 ↓ has
+                    DeliveryStatus           Address
+                         ↓
+                         │
+                    (1) Delivery ──→ (N) DeliveryHistory
+                                            ↓ tracks
+                                     Performance Metrics
 ```
 
 ## 🛠️ Technologies
@@ -202,8 +216,10 @@ Tour (1) ──────────→ (N) Delivery
 | **Language** | Java | 21 |
 | **Framework** | Spring Boot | 3.5.6 |
 | **Persistence** | Spring Data JPA | 3.5.6 |
-| **Database** | H2 (Development) | 2.2.224 |
+| **Database** | H2 (Development) / PostgreSQL (Production) | 2.2.224 / 42.7.3 |
 | **Migration** | Liquibase | 4.31.1 |
+| **AI Integration** | Spring AI (DeepSeek) | 1.0.3 |
+| **Secrets Management** | HashiCorp Vault | 4.2.1 |
 | **Documentation** | SpringDoc OpenAPI | 2.2.0 |
 | **Build Tool** | Maven | 3.9.6+ |
 | **Container** | Docker | - |
@@ -237,6 +253,30 @@ cp src/main/resources/application-example.properties src/main/resources/applicat
 ```
 
 2. Update database configuration if needed in `application.properties`
+
+### Configure AI Optimization (Optional)
+
+The application uses DeepSeek AI for intelligent route optimization. To enable this feature:
+
+1. **Set up HashiCorp Vault** (recommended for production):
+   - The application uses Vault to securely store the DeepSeek API key
+   - Initialize Vault using the provided script:
+   ```bash
+   ./vault-init/init-secrets.sh
+   ```
+   - Store your DeepSeek API key in Vault under the path configured in `bootstrap.yml`
+
+2. **Or use environment variables** (development):
+   ```bash
+   export DEEPSEEK_APIKEY=your-api-key-here
+   ```
+
+3. **Configure optimizer strategy** in `application.yml`:
+   ```yaml
+   optimize:
+     strategy: ai  # Options: ai, nearest-neighbor, clarke-wright
+   ```
+
 
 ### Build the Project
 
@@ -325,10 +365,30 @@ http://localhost:8080/h2-console
 - `POST /optimize` - Run the Optimizer
 
 ### Vehicle Management
-- Vehicle CRUD operations (similar pattern)
+- `GET /vehicule` - List all vehicles
+- `POST /vehicule` - Create a new vehicle
+- `GET /vehicule/{id}` - Get vehicle by ID
+- `PUT /vehicule/{id}` - Update vehicle
+- `DELETE /vehicule/{id}` - Delete vehicle
 
 ### Delivery Management
-- Delivery tracking and management operations
+- `GET /deliveries` - List all deliveries
+- `POST /deliveries` - Create a new delivery
+- `GET /deliveries/{id}` - Get delivery by ID
+- `PUT /deliveries/{id}` - Update delivery status
+- `DELETE /deliveries/{id}` - Delete delivery
+
+### Customer Management
+- `GET /customers` - List all customers
+- `POST /customers` - Create a new customer
+- `GET /customers/{id}` - Get customer by ID
+- `PUT /customers/{id}` - Update customer
+- `DELETE /customers/{id}` - Delete customer
+
+### Delivery History
+- `GET /delivery-history` - List delivery history records
+- `GET /delivery-history/{id}` - Get specific history record
+- Analytics endpoints for AI learning
 
 ## 🧪 Testing
 
@@ -358,20 +418,41 @@ optiroute/
 │   ├── main/
 │   │   ├── java/com/optiroute/optiroute/
 │   │   │   ├── application/           # Application services & mappers
+│   │   │   │   ├── service/           # Use case implementations
+│   │   │   │   ├── mapper/            # DTO ↔ Domain mapping
+│   │   │   │   └── helper/            # Application helpers
 │   │   │   ├── domain/                # Domain entities & business logic
+│   │   │   │   ├── entity/            # Core entities (Delivery, Tour, etc.)
+│   │   │   │   ├── service/           # Domain services
+│   │   │   │   ├── repository/        # Data access interfaces
+│   │   │   │   ├── vo/                # Value Objects (Coordinates, Address)
+│   │   │   │   ├── enums/             # Domain enumerations
+│   │   │   │   ├── event/             # Domain events
+│   │   │   │   └── exception/         # Domain exceptions
 │   │   │   ├── infrastructure/        # Technical implementations
+│   │   │   │   ├── config/            # Spring configuration
+│   │   │   │   ├── strategy/          # Route optimization algorithms
+│   │   │   │   ├── logging/           # Logging aspects
+│   │   │   │   └── seeder/            # Database seeding utilities
 │   │   │   ├── presentation/          # Controllers & DTOs
-│   │   │   ├── seeder/                # Data seeding utilities
+│   │   │   │   ├── controller/        # REST controllers
+│   │   │   │   ├── dto/               # Data Transfer Objects
+│   │   │   │   └── advice/            # Exception handlers
 │   │   │   ├── utility/               # Helper utilities (e.g., Haversine)
 │   │   │   └── OptirouteApplication.java
 │   │   └── resources/
-│   │       ├── application.properties
+│   │       ├── application.yml        # Main configuration
+│   │       ├── application-dev.yml    # Development profile
+│   │       ├── application-qa.yml     # QA profile
+│   │       ├── bootstrap.yml          # Bootstrap configuration (Vault)
 │   │       ├── applicationContext.xml
-│   │       ├── logback-spring.xml
+│   │       ├── logback-spring.xml     # Logging configuration
 │   │       └── db/changelog/          # Liquibase migrations
 │   └── test/                          # Test files
 ├── logs/                              # Application logs
+├── vault-init/                        # Vault initialization scripts
 ├── Dockerfile                         # Docker configuration
+├── docker-compose.yml                 # Docker Compose setup
 ├── pom.xml                           # Maven dependencies
 ├── openapi.json                      # OpenAPI specification
 ├── postman_collection.json           # Postman API tests
@@ -393,6 +474,18 @@ optiroute/
 - **Pros**: Better optimization quality, considers vehicle capacity
 - **Cons**: More computational overhead
 - **Best for**: Larger delivery sets, when optimization quality matters
+
+### 3. AI-Powered Optimizer (DeepSeek)
+- **Complexity**: Variable (depends on AI model)
+- **Strategy**: Leverages machine learning from historical delivery patterns
+- **Features**:
+  - Learns from past delivery performance and delays
+  - Considers historical traffic patterns based on day of week
+  - Provides intelligent recommendations and justifications
+  - Adapts to changing delivery conditions over time
+- **Pros**: Continuously improving optimization, contextually aware decisions
+- **Cons**: Requires API connectivity, depends on historical data quality
+- **Best for**: Long-term optimization, data-rich environments, complex routing scenarios
 
 ## 🤝 Contributing
 
