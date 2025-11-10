@@ -47,8 +47,7 @@ public class AIOptimizer implements TourOptimizer {
        log.warn("Prompt Completed: {}", prompt.toPrettyString());
        String aiResponse = callAI(prompt);
        log.warn("AI response : {} ", aiResponse);
-        // return parseTour(aiResponse, deliveryList);
-        return List.of();
+       return parseTour(aiResponse, deliveryList);
     }
 
 
@@ -58,13 +57,12 @@ public class AIOptimizer implements TourOptimizer {
     }
 
     private ObjectNode buildPrompt(WareHouse wareHouse, List<Delivery> deliveryList, Vehicule vehicule, List<DeliveryHistory> deliveryHistories) {
-
         log.warn("Start Building a Prompt ");
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode root = mapper.createObjectNode();
 
         root.putObject("system").put("role", "system")
-                .put("content", "You are TourOptimizer, an AI that optimizes delivery tours considering vehicle capacity and past patterns.");
+                .put("content", "You are TourOptimizer, an AI that optimizes delivery tours considering vehicle capacity and past patterns. You MUST respond with ONLY valid JSON. Do NOT use markdown code fences, do NOT add explanatory text before or after the JSON.");
 
         root.put("WareHouse", "Latitude: " + wareHouse.getCoordinates().latitude() + " " + "Longtitude: " + wareHouse.getCoordinates().longitude());
         ObjectNode vehiculeNode = root.putObject("vehicule");
@@ -94,10 +92,20 @@ public class AIOptimizer implements TourOptimizer {
 
         ObjectNode task = root.putObject("task");
         task.put("objective", "Optimize delivery sequence for efficiency, capacity constraints and recommendations with justifications");
-        task.putObject("output_format").putArray("fields")
-                .add("optimized_deliveries")
-                .add("recommendations")
-                .add("predicted_best_routes");
+        task.put("output_instructions", "Return ONLY raw JSON without markdown formatting. No code blocks, no backticks, no text explanations.");
+
+        ObjectNode outputFormat = task.putObject("output_format");
+        outputFormat.put("type", "json");
+        outputFormat.put("strict", true);
+        ArrayNode fields = outputFormat.putArray("required_fields");
+        fields.add("optimized_deliveries");
+        fields.add("recommendations");
+        fields.add("predicted_best_routes");
+
+        ObjectNode schema = task.putObject("required_schema");
+        schema.put("predicted_best_routes_structure", "Array of route objects. Each route MUST contain a 'sequence' field (array of delivery IDs in optimal order)");
+        schema.put("sequence_field_name", "Use exactly 'sequence' as the field name, not 'route_sequence' or other variations");
+
         return root;
     }
 
@@ -112,17 +120,40 @@ public class AIOptimizer implements TourOptimizer {
         List<Delivery> orderedDeliveries = new ArrayList<>();
 
         try {
-            JsonNode root = mapper.readTree(aiResponse);
-            JsonNode optimizedArr = root.get("optimized_deliveries");
+            String cleanedResponse = aiResponse.trim();
 
-            for (JsonNode d : optimizedArr) {
-                Long deliveryId = d.get("delivery_id").asLong();
+            if(cleanedResponse.startsWith("```")) {
+
+                cleanedResponse = cleanedResponse.replaceFirst("```(?:json)?\\s*", "");
+                cleanedResponse = cleanedResponse.replaceFirst("```\\s*$", "");
+                cleanedResponse = cleanedResponse.trim();
+            }
+
+            JsonNode root = mapper.readTree(cleanedResponse);
+            JsonNode routes = root.get("predicted_best_routes");
+
+            if(null == routes || !routes.isArray() || routes.isEmpty()) {
+                throw new RuntimeException("No predicted_best_routes found in AI response");
+            }
+
+            JsonNode firstRoute = routes.get(0);
+            JsonNode sequence = firstRoute.get("sequence");
+
+            if(null == sequence || !sequence.isArray()) {
+                throw new RuntimeException("No sequence found in routes");
+            }
+
+            for(JsonNode idNode : sequence) {
+                Long deliveryId = idNode.asLong();
                 originalDeliveries.stream()
                         .filter(del -> del.getId().equals(deliveryId))
                         .findFirst()
                         .ifPresent(orderedDeliveries::add);
             }
+
+            log.info("Parsed {} deliveries from AI response sequence", orderedDeliveries.size());
         } catch (Exception e) {
+            log.error("Failed to parse AI response: {}", e.getMessage());
             throw  new RuntimeException("Failed to parse AI response", e);
         }
 
