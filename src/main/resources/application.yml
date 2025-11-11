@@ -2,7 +2,7 @@ spring:
   application:
     name: optiroute
   profiles:
-    active: qa
+    active: dev
   ai:
     deepseek:
       api-key: ${DEEPSEEK_APIKEY}
